@@ -6,7 +6,7 @@
  * Plugin Name: Waves Gateway for Woocommerce
  * Plugin URI: https://uwtoken.com
  * Description: Show prices in WAVES and accept WAVES payments in your woocommerce webshop
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: John Doe / Useless Waves Token
  * License: GPLv2 or later
  * License URI: http://www.opensource.org/licenses/gpl-license.php
