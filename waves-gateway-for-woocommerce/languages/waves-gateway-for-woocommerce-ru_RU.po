@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Waves Gateway for Woocommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-21 13:48+0000\n"
+"PO-Revision-Date: 2017-07-24 01:43+0000\n"
+"Last-Translator: Demo <info@stechnology.nl>\n"
+"Language-Team: Russian\n"
+"Language: ru-RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#. URI of the plugin
+msgid "https://uwtoken.com"
+msgstr "https://uwtoken.com"
+
+#. Author of the plugin
+msgid "John Doe / Useless Waves Token"
+msgstr "John Doe / Useless Waves Token"
+
+#: includes/class-waves-gateway.php:25
+msgid "Awaiting transfer.."
+msgstr "Ожидание оплаты..."
+
+#: includes/class-waves-gateway.php:94 includes/class-waves-gateway.php:100
+#: includes/class-waves-gateway.php:105
+msgid "copied"
+msgstr "скопировано"
+
+#: includes/class-waves-gateway.php:99
+msgid "destination address"
+msgstr "Адрес получителя"
+
+#: includes/class-waves-gateway.php:104
+msgid "attachment"
+msgstr "прикрепление (attachment)"
+
+#: includes/class-waves-gateway.php:113
+#, php-format
+msgid ""
+"Send a payment of exactly %s to the address above (click the links to copy "
+"or scan the QR code). We will check in the background and notify you when "
+"the payment has been validated."
+msgstr ""
+"Отправьте платеж (ровно %s) по указанному выше адресу (щелкните, чтобы "
+"скопировать или сканируйте QR-код). Страница обновится, когда платеж будет "
+"проверен."
+
+#: includes/class-waves-gateway.php:114
+#, php-format
+msgid "Please send your payment within %s."
+msgstr "Отправьте ваш платеж в течении %s."
+
+#: includes/class-waves-gateway.php:115
+msgid ""
+"When the timer reaches 0 this form will refresh and update the attachment as "
+"well as the total amount using the latest conversion rate."
+msgstr ""
+"Когда таймер достигнет 0, страница обновится и обновит прикрепление, а также "
+"общую сумму, используя последний курс обмена."
+
+#: includes/class-waves-settings.php:22
+msgid "Enable/Disable"
+msgstr ""
+"Включить/Выключить\n"
+
+#: includes/class-waves-settings.php:24
+msgid "Enable Waves payments"
+msgstr "Включить Waves платежи"
+
+#: includes/class-waves-settings.php:28
+msgid "Title"
+msgstr "Название"
+
+#: includes/class-waves-settings.php:30
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+"Это контролирует название, который пользователь видит во время рассчета."
+
+#: includes/class-waves-settings.php:31
+msgid "Pay with WAVES"
+msgstr "Оплата через WAVES "
+
+#: includes/class-waves-settings.php:35
+msgid "Customer Message"
+msgstr "Сообщение клиенту"
+
+#: includes/class-waves-settings.php:40
+msgid "Destination address"
+msgstr "Адрес получателя"
+
+#: includes/class-waves-settings.php:43
+msgid "This addresses will be used for receiving funds."
+msgstr "Этот кошелек будет использован для получения средств. "
+
+#: includes/class-waves-settings.php:46
+msgid "Convert prices"
+msgstr "Конвертировать цены"
+
+#: includes/class-waves-settings.php:48
+msgid "Add prices in WAVES"
+msgstr "Добавить цены в WAVES"
+
+#. Name of the plugin
+msgid "Waves Gateway for Woocommerce"
+msgstr "Waves Gateway для Woocommerce"
+
+#. Description of the plugin
+msgid ""
+"Show prices in WAVES and accept WAVES payments in your woocommerce webshop"
+msgstr ""
+"Показывайте цены в WAVES и принимайте платежи WAVES в вашем интернет-"
+"магазине на платформе woocommerce."

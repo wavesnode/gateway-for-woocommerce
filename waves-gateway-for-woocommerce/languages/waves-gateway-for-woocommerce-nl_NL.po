@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Waves Gateway for Woocommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-21 13:48+0000\n"
+"PO-Revision-Date: 2017-07-21 14:06+0000\n"
+"Last-Translator: Demo <info@stechnology.nl>\n"
+"Language-Team: Dutch\n"
+"Language: nl-NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: includes/class-waves-gateway.php:25
+msgid "Awaiting transfer.."
+msgstr "Wachten op betaling..."
+
+#: includes/class-waves-gateway.php:94 includes/class-waves-gateway.php:100
+#: includes/class-waves-gateway.php:105
+msgid "copied"
+msgstr "gekopieerd "
+
+#: includes/class-waves-gateway.php:99
+msgid "destination address"
+msgstr "Ontvanger "
+
+#: includes/class-waves-gateway.php:104
+msgid "attachment"
+msgstr "bijlage (attachment)"
+
+#: includes/class-waves-gateway.php:113
+#, php-format
+msgid ""
+"Send a payment of exactly %s to the address above (click the links to copy "
+"or scan the QR code). We will check in the background and notify you when "
+"the payment has been validated."
+msgstr ""
+"Stuur een betaling van exact %s naar het adres hierboven (klik op de links "
+"om te kopiëren of scan de QR code). De pagina wordt ververst als de betaling "
+"ontvangen is. "
+
+#: includes/class-waves-gateway.php:114
+#, php-format
+msgid "Please send your payment within %s."
+msgstr "Verstuur de betaling binnen %s."
+
+#: includes/class-waves-gateway.php:115
+msgid ""
+"When the timer reaches 0 this form will refresh and update the attachment as "
+"well as the total amount using the latest conversion rate."
+msgstr ""
+"Zodra de timer is afgelopen zal dit formulier verversen en de bedragen en de "
+"attachment bijwerken aan de hand van de meest recente wisselkoers."
+
+#: includes/class-waves-settings.php:22
+msgid "Enable/Disable"
+msgstr "Inschakelen/Uitschakelen"
+
+#: includes/class-waves-settings.php:24
+msgid "Enable Waves payments"
+msgstr "Waves betalingen inschakelen"
+
+#: includes/class-waves-settings.php:28
+msgid "Title"
+msgstr "Titel "
+
+#: includes/class-waves-settings.php:30
+msgid "This controls the title which the user sees during checkout."
+msgstr "Dit bepaalt de titel die wordt weergegeven op de afrekenpagina. "
+
+#: includes/class-waves-settings.php:31
+msgid "Pay with WAVES"
+msgstr "Betaal met WAVES"
+
+#: includes/class-waves-settings.php:35
+msgid "Customer Message"
+msgstr "Klantbericht"
+
+#: includes/class-waves-settings.php:40
+msgid "Destination address"
+msgstr "Ontvangstwallet"
+
+#: includes/class-waves-settings.php:43
+msgid "This addresses will be used for receiving funds."
+msgstr "Dit adres wordt gebruikt om betalingen te ontvangen"
+
+#: includes/class-waves-settings.php:46
+msgid "Convert prices"
+msgstr "Bedragen omrekenen"
+
+#: includes/class-waves-settings.php:48
+msgid "Add prices in WAVES"
+msgstr "Bedragen in Waves toevoegen"
+
+#. Name of the plugin
+msgid "Waves Gateway for Woocommerce"
+msgstr "Waves Gateway voor Woocommerce"
+
+#. Description of the plugin
+msgid ""
+"Show prices in WAVES and accept WAVES payments in your woocommerce webshop"
+msgstr ""
+"Geef de prijzen weer in WAVES en accepteer WAVES betalingen in je "
+"Woocommerce webshop"
+
+#. URI of the plugin
+msgid "https://uwtoken.com"
+msgstr "https://uwtoken.com"
+
+#. Author of the plugin
+msgid "John Doe / Useless Waves Token"
+msgstr "John Doe / Useless Waves Token"

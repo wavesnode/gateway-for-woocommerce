@@ -1,0 +1,42 @@
+.waves-address, .waves-amount{
+	display: block;
+	text-align: center;
+	margin: 0 !important;
+}
+.waves-label{
+	display: block;
+	text-align: center;
+	font-size: 80%;
+	text-transform: uppercase;
+}
+.separator{
+	display:block;
+	margin-top: 1em;
+}
+.waves-logo{
+	margin: 0 auto;
+}
+.waves-container{
+	text-align: center;
+}
+.waves-description{
+	font-size: 80%;
+	text-align: center;
+}
+
+#waves-qr-code{
+	display: block;
+	width: 208px;
+	height: 208px;
+	border: 1px solid #000;
+	padding: 3px;
+	margin:0 auto;
+}
+.copy{
+	text-decoration: underline;
+	cursor: pointer;
+	font-weight: 600;
+}
+.small{
+	font-size: 80%;
+}
