@@ -59,7 +59,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $user       = wp_get_current_user();
         $total_converted_old = WavesExchange::convert(get_woocommerce_currency(), $this->get_order_total());
         
-		$Price = file_get_contents("http://marketdata.wavesplatform.com/api/trades/984mPD35vrA5Pfcuadqg8BUFNFjcUDpU3iadUWVt9t28/WAVES/1");
+		$Price = file_get_contents("http://marketdata.wavesplatform.com/api/trades/AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym/WAVES/1");
 		$Price_JSON = json_decode( $Price, true);
 		$Price_WNET = $Price_JSON[0]['price'];
         $total_waves_converted = round($total_converted_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
@@ -79,7 +79,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         echo '<div id="waves-form">';
         //QR uri
         
-		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=984mPD35vrA5Pfcuadqg8BUFNFjcUDpU3iadUWVt9t28&attachment=".$destination_tag;
+		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym&attachment=".$destination_tag;
 
         echo '<div class="waves-container">';
         echo '<div>';
@@ -149,7 +149,7 @@ class WcWavesGateway extends WC_Payment_Gateway
 		    );
 	    }
 		
-		if($transaction->assetId != '984mPD35vrA5Pfcuadqg8BUFNFjcUDpU3iadUWVt9t28' ) {
+		if($transaction->assetId != 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym' ) {
 			return array(
 		        'result'    => 'failure',
 		        'messages' 	=> 'Wrong Asset'
