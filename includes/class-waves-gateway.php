@@ -57,8 +57,17 @@ class WcWavesGateway extends WC_Payment_Gateway
     	$woocommerce->cart->get_cart();
 
         $user       = wp_get_current_user();
-        $total_converted = WavesExchange::convert(get_woocommerce_currency(), $this->get_order_total());
-        $total_waves = $total_converted * 100000000;
+        $total_converted_old = WavesExchange::convert(get_woocommerce_currency(), $this->get_order_total());
+        
+		$Price = file_get_contents("http://marketdata.wavesplatform.com/api/trades/984mPD35vrA5Pfcuadqg8BUFNFjcUDpU3iadUWVt9t28/WAVES/1");
+		$Price_JSON = json_decode( $Price, true);
+		$Price_WNET = $Price_JSON[0]['price'];
+        $total_waves_converted = round($total_converted_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
+        $total_waves_formatted = number_format($total_waves_converted,0);
+		$total_waves = $total_waves_converted;
+		
+		$total_converted = round($total_converted_old / $Price_WNET,0, PHP_ROUND_HALF_UP);
+		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
         $base58 = new StephenHill\Base58();
         $destination_tag_encoded = $base58->encode(strval($destination_tag));
@@ -69,7 +78,8 @@ class WcWavesGateway extends WC_Payment_Gateway
 
         echo '<div id="waves-form">';
         //QR uri
-		$url = "waves://". $this->address ."?amount=". $total_waves."&attachment=".$destination_tag;
+        
+		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=984mPD35vrA5Pfcuadqg8BUFNFjcUDpU3iadUWVt9t28&attachment=".$destination_tag;
 
         echo '<div class="waves-container">';
         echo '<div>';
@@ -90,7 +100,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         
         $fiat_total = $this->get_order_total();
         $rate = $total_converted / $fiat_total;
-        echo '<label class="waves-label">(1'. get_woocommerce_currency() .' = '.round($rate,6).' WAVES)</label>';
+        echo '<label class="waves-label">(1'. get_woocommerce_currency() .' = '.round($rate,6).' WNET)</label>';
         echo '<p class="waves-amount"><span class="copy" data-success-label="'. __('copied','waves-gateway-for-woocommerce') .'" data-clipboard-text="' . esc_attr($total_converted) . '">' . esc_attr($total_converted) . '</span></p>';
         echo '</div>';
         echo '</div>';
@@ -138,7 +148,14 @@ class WcWavesGateway extends WC_Payment_Gateway
 		        'messages' 	=> 'attachment mismatch'
 		    );
 	    }
-
+		
+		if($transaction->assetId != '984mPD35vrA5Pfcuadqg8BUFNFjcUDpU3iadUWVt9t28' ) {
+			return array(
+		        'result'    => 'failure',
+		        'messages' 	=> 'Wrong Asset'
+		    );
+		}
+		
 	    if($transaction->amount != $payment_total) {
 	    	return array(
 		        'result'    => 'failure',

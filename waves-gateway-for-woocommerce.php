@@ -3,10 +3,10 @@
 /**
  * Waves Gateway for Woocommerce
  *
- * Plugin Name: Waves Gateway for Woocommerce
+ * Plugin Name: WNET Gateway for Woocommerce
  * Plugin URI: https://uwtoken.com
- * Description: Show prices in WAVES and accept WAVES payments in your woocommerce webshop
- * Version: 0.0.2
+ * Description: Show prices in WNET and accept WNET payments in your woocommerce webshop
+ * Version: 0.1.3
  * Author: John Doe / Useless Waves Token
  * License: GPLv2 or later
  * License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -144,9 +144,15 @@ if (!class_exists('WcWaves')) {
 
 	        if ($options['show_prices'] == 'yes') {
 
-	            $wave_price = round(WavesExchange::convert($currency, $price), 2, PHP_ROUND_HALF_UP);
+	            $wave_price_old = WavesExchange::convert($currency, $price);
+				
+				$Price = file_get_contents("http://marketdata.wavesplatform.com/api/trades/AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym/WAVES/1");
+				$Price_JSON = json_decode( $Price, true);
+				$Price_WNET = $Price_JSON[0]['price'];
+				$wave_price = round($wave_price_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
+				
 	            if ($wave_price) {
-	                $new_price_string = $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wave_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WAVES)</span>';
+	                $new_price_string = $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wave_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
 	                return $new_price_string;
 	            }
 	        }
