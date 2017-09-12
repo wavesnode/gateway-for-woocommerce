@@ -16,22 +16,20 @@ class WavesExchange
 
         $url = "https://api.cryptonator.com/api/ticker/". strtolower($currency) ."-waves";
 
+        $result = WavesExchange::getBodyAsJson($url);
+        if(!$result) {
+            return 'undefined';
+        }
+        $rate = $result->ticker->price;
+        return round($amount * $rate,6);
+    }
+
+    private static function getBodyAsJson($url,$retries=1) {
         $response = wp_remote_get( $url );
         $result = json_decode(wp_remote_retrieve_body($response));
-        
-        if ($result) {
-            $rate = $result->ticker->price;
-        } else {
-            // sometimes we need to try it once again if it doesn't work the first time
-            $response = wp_remote_get( $url );
-            $result = json_decode(wp_remote_retrieve_body($response));
-            if ($result) {
-                $rate = $result->ticker->price;
-                } else {
-            return 'undefined';
-            }
+        if(!$result && $retries>0) {
+            return WavesExchange::getBodyAsJson($url,--$retries);
         }
-		return round($amount * $rate,6);
-    
+        return $result?$result:null;
     }
 }
