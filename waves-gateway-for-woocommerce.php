@@ -143,12 +143,7 @@ if (!class_exists('WcWaves')) {
 	        $options = get_option('woocommerce_waves_settings');
 
 	        if ($options['show_prices'] == 'yes') {
-
-	            $wave_price_old = WavesExchange::convert($currency, $price);
-
-                $Price_WNET = WavesExchange::getAssetPrice();
-				$wave_price = round($wave_price_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
-				
+                $wave_price = WavesExchange::convertToWnet($currency, $price);
 	            if ($wave_price) {
 	                $new_price_string = $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wave_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
 	                return $new_price_string;
