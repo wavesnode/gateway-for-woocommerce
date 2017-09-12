@@ -41,8 +41,8 @@ class WavesExchange
     }
 
     public static function convertToWnet($currency, $price) {
-        $wave_price_old = WavesExchange::convert($currency, $price);
-        $Price_WNET = WavesExchange::getAssetPrice();
-        return round($wave_price_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
+        $price_in_waves = WavesExchange::convert($currency, $price);
+        $wnet_asset_price = WavesExchange::getAssetPrice();
+        return round($price_in_waves / $wnet_asset_price, 0, PHP_ROUND_HALF_UP);
     }
 }

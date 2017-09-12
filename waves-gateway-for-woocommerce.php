@@ -143,10 +143,9 @@ if (!class_exists('WcWaves')) {
 	        $options = get_option('woocommerce_waves_settings');
 
 	        if ($options['show_prices'] == 'yes') {
-                $wave_price = WavesExchange::convertToWnet($currency, $price);
-	            if ($wave_price) {
-	                $new_price_string = $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wave_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
-	                return $new_price_string;
+                $wnet_price = WavesExchange::convertToWnet($currency, $price);
+	            if ($wnet_price) {
+	                return $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wnet_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
 	            }
 	        }
 
