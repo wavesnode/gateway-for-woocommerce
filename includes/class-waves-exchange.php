@@ -9,6 +9,8 @@ if (!defined('ABSPATH')) {
  */
 class WavesExchange
 {
+    public static $ASSET_ID = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';//WNET
+
     public static function convert($currency, $amount)
     {
 
@@ -31,5 +33,10 @@ class WavesExchange
             return WavesExchange::getBodyAsJson($url,--$retries);
         }
         return $result?$result:null;
+    }
+
+    public static function getAssetPrice() {
+        $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/trades/".WavesExchange::$ASSET_ID."/WAVES/1");
+        return $result?$result->price:'undefined';
     }
 }

@@ -145,10 +145,8 @@ if (!class_exists('WcWaves')) {
 	        if ($options['show_prices'] == 'yes') {
 
 	            $wave_price_old = WavesExchange::convert($currency, $price);
-				
-				$Price = file_get_contents("http://marketdata.wavesplatform.com/api/trades/AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym/WAVES/1");
-				$Price_JSON = json_decode( $Price, true);
-				$Price_WNET = $Price_JSON[0]['price'];
+
+                $Price_WNET = WavesExchange::getAssetPrice();
 				$wave_price = round($wave_price_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
 				
 	            if ($wave_price) {
