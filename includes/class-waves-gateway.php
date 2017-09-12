@@ -59,12 +59,11 @@ class WcWavesGateway extends WC_Payment_Gateway
         $user       = wp_get_current_user();
         $total_converted_old = WavesExchange::convert(get_woocommerce_currency(), $this->get_order_total());
 
-        $Price_WNET = WavesExchange::getAssetPrice();
-        $total_waves_converted = round($total_converted_old / $Price_WNET, 0, PHP_ROUND_HALF_UP);
+        $total_waves_converted = WavesExchange::convertToWnet(get_woocommerce_currency(), $this->get_order_total());
         $total_waves_formatted = number_format($total_waves_converted,0);
 		$total_waves = $total_waves_converted;
 		
-		$total_converted = round($total_converted_old / $Price_WNET,0, PHP_ROUND_HALF_UP);
+		$total_converted = WavesExchange::convertToWnet(get_woocommerce_currency(), $this->get_order_total());
 		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
         $base58 = new StephenHill\Base58();
