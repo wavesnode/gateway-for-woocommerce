@@ -37,7 +37,7 @@ class WavesExchange
 
     public static function getAssetPrice() {
         $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/trades/".WavesExchange::$ASSET_ID."/WAVES/1");
-        return $result?$result->price:'undefined';
+        return $result?$result[0]->price:'undefined';
     }
 
     public static function convertToWnet($currency, $price) {
