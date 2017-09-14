@@ -13,8 +13,7 @@ class WavesExchange
 
     public static function convert($currency, $amount)
     {
-        $waves_price = WavesExchange::getExchangePrice('waves',$currency);
-        return round($amount / $waves_price, 0, PHP_ROUND_HALF_UP);
+        return WavesExchange::exchange($currency,$amount,'waves');
     }
 
     private static function getBodyAsJson($url,$retries=1) {
@@ -37,9 +36,13 @@ class WavesExchange
         return $result;
     }
 
+    private static function exchange($currency,$price,$currencyTo) {
+        $exchange_price = WavesExchange::getExchangePrice($currencyTo,$currency);
+        return round($price / $exchange_price, 0, PHP_ROUND_HALF_UP);
+    }
+
     public static function convertToWnet($currency, $price) {
         $price_in_waves = WavesExchange::convert($currency, $price);
-        $wnet_asset_price = WavesExchange::getExchangePrice('wnet','waves');
-        return round($price_in_waves / $wnet_asset_price, 0, PHP_ROUND_HALF_UP);
+        return WavesExchange::exchange('waves',$price_in_waves,'wnet');
     }
 }
