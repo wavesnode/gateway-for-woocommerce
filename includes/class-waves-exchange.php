@@ -36,8 +36,8 @@ class WavesExchange
     }
 
     public static function getAssetPrice() {
-        $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/trades/".WavesExchange::$ASSET_ID."/WAVES/1");
-        return $result?$result[0]->price:'undefined';
+        $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/ticker/wnet/waves");
+        return $result?$result->{'24h_vwap'}:'undefined';
     }
 
     public static function convertToWnet($currency, $price) {
