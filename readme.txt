@@ -1,10 +1,10 @@
 === Waves Gateway for Woocommerce ===
-Contributors: uwtoken
-Donate link:-
+Contributors: uwtoken,tubbynl
+Donate link: Waves: 3P4gvv7rZC1kFDobs4oQHN3H6NQckWiu9wz (tubbynl),3PFn9SGPJ8yVjcmBps48Jx6ddz1QXwUiYqP (uwtoken)
 Tags: billing, invoicing, woocommerce, payment
 Requires at least: 3.0.1
 Tested up to: 4.8
-Stable tag: 0.0.2
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,10 +21,6 @@ Display prices in WAVES and let your clients pay through Waves. Built on top of 
 * Matches payments on (encoded) attachment and amount
 * Checkout page is automatically refreshed after a successful payment 
 * Dutch and Russian translations included. More translations are welcome.
-
-Like it? 
-Donate WAVES: 3PFn9SGPJ8yVjcmBps48Jx6ddz1QXwUiYqP
-(or any other Waves asset)
 
 == Installation ==
 
@@ -43,6 +39,11 @@ Install the plugin by uploading the zipfile in your WP admin interface or via FT
 
 == Changelog ==
 
+- 0.2.0
+* Fixed the WNET code to correctly work with woocommerce again
+* Routed the WNET exchange REST requests the same as the Waves REST requests
+- 0.1.3
+* updated this plugin to WNET currency
 - 0.0.2
 * Correct issue which caused the zip files to be broken
 - 0.0.1
