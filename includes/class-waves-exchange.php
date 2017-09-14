@@ -9,8 +9,6 @@ if (!defined('ABSPATH')) {
  */
 class WavesExchange
 {
-    public static $ASSET_ID = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';//WNET
-
     private static function getBodyAsJson($url,$retries=1) {
         $response = wp_remote_get( $url );
         $result = json_decode(wp_remote_retrieve_body($response));

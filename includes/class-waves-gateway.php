@@ -13,6 +13,7 @@ class WcWavesGateway extends WC_Payment_Gateway
     public $title;
     public $form_fields;
     public $addresses;
+    private $assetId = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';//WNET
 
     public function __construct()
     {
@@ -70,7 +71,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         echo '<div id="waves-form">';
         //QR uri
         
-		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=".WavesExchange::$ASSET_ID."&attachment=".$destination_tag;
+		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=".$this->assetId."&attachment=".$destination_tag;
 
         echo '<div class="waves-container">';
         echo '<div>';
@@ -140,7 +141,7 @@ class WcWavesGateway extends WC_Payment_Gateway
 		    );
 	    }
 		
-		if($transaction->assetId != WavesExchange::$ASSET_ID ) {
+		if($transaction->assetId != $this->assetId ) {
 			return array(
 		        'result'    => 'failure',
 		        'messages' 	=> 'Wrong Asset'
