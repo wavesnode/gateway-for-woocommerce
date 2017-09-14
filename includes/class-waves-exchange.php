@@ -11,11 +11,6 @@ class WavesExchange
 {
     public static $ASSET_ID = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';//WNET
 
-    public static function convert($currency, $amount)
-    {
-        return WavesExchange::exchange($currency,$amount,'waves');
-    }
-
     private static function getBodyAsJson($url,$retries=1) {
         $response = wp_remote_get( $url );
         $result = json_decode(wp_remote_retrieve_body($response));
@@ -42,7 +37,7 @@ class WavesExchange
     }
 
     public static function convertToWnet($currency, $price) {
-        $price_in_waves = WavesExchange::convert($currency, $price);
+        $price_in_waves = WavesExchange::exchange($currency,$price,'waves');
         return WavesExchange::exchange('waves',$price_in_waves,'wnet');
     }
 }
