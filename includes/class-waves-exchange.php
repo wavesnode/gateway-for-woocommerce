@@ -35,14 +35,20 @@ class WavesExchange
         return $result?$result:null;
     }
 
-    public static function getAssetPrice() {
-        $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/ticker/wnet/waves");
-        return $result?$result->{'24h_vwap'}:'undefined';
+    public static function getExchangePrice($currency1,$currency2) {
+        $pair = $currency1."/".$currency2;
+        $result = wp_cache_get($pair,'exchangePrices');
+        if (false === $result ) {
+            $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/ticker/".$currency1."/".$currency2);
+            $result = $result?$result->{'24h_vwap'}:false;
+            wp_cache_set( $pair, $result, 'exchangePrices', 3600);
+        }
+        return $result;
     }
 
     public static function convertToWnet($currency, $price) {
         $price_in_waves = WavesExchange::convert($currency, $price);
-        $wnet_asset_price = WavesExchange::getAssetPrice();
+        $wnet_asset_price = WavesExchange::getExchangePrice('wnet','waves');
         return round($price_in_waves / $wnet_asset_price, 0, PHP_ROUND_HALF_UP);
     }
 }
