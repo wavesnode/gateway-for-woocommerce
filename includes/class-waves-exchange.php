@@ -13,17 +13,8 @@ class WavesExchange
 
     public static function convert($currency, $amount)
     {
-
-        // making use of cryptonator api
-
-        $url = "https://api.cryptonator.com/api/ticker/". strtolower($currency) ."-waves";
-
-        $result = WavesExchange::getBodyAsJson($url);
-        if(!$result) {
-            return 'undefined';
-        }
-        $rate = $result->ticker->price;
-        return round($amount * $rate,6);
+        $waves_price = WavesExchange::getExchangePrice('waves',$currency);
+        return round($amount / $waves_price, 0, PHP_ROUND_HALF_UP);
     }
 
     private static function getBodyAsJson($url,$retries=1) {
@@ -35,12 +26,12 @@ class WavesExchange
         return $result?$result:null;
     }
 
-    public static function getExchangePrice($currency1,$currency2) {
-        $pair = $currency1."/".$currency2;
+    private static function getExchangePrice($currency1,$currency2) {
+        $pair = strtolower($currency1."/".$currency2);
         $result = wp_cache_get($pair,'exchangePrices');
         if (false === $result ) {
-            $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/ticker/".$currency1."/".$currency2);
-            $result = $result?$result->{'24h_vwap'}:false;
+            $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/ticker/".$pair);
+            $result = isset($result->{'24h_vwap'})?$result->{'24h_vwap'}:false;
             wp_cache_set( $pair, $result, 'exchangePrices', 3600);
         }
         return $result;
