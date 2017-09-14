@@ -4,7 +4,7 @@ Donate link: Waves: 3P4gvv7rZC1kFDobs4oQHN3H6NQckWiu9wz (tubbynl),3PFn9SGPJ8yVjc
 Tags: billing, invoicing, woocommerce, payment
 Requires at least: 3.0.1
 Tested up to: 4.8
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,8 @@ Install the plugin by uploading the zipfile in your WP admin interface or via FT
 
 == Changelog ==
 
+- 0.2.1
+* using wavesplatform.com marketdata api ticker 24h_vwap values for exchange rates
 - 0.2.0
 * Fixed the WNET code to correctly work with woocommerce again
 * Routed the WNET exchange REST requests the same as the Waves REST requests
