@@ -40,7 +40,7 @@ if (!class_exists('WcWaves')) {
     {
 
         private static $instance;
-        public static $version = '0.2.1';
+        public static $version = '0.2.2';
         public static $plugin_basename;
         public static $plugin_path;
         public static $plugin_url;
