@@ -56,8 +56,11 @@ class WcWavesGateway extends WC_Payment_Gateway
     {
     	global $woocommerce;
     	$woocommerce->cart->get_cart();
-
-        $total_converted = WavesExchange::convertToWnet(get_woocommerce_currency(), $this->get_order_total());
+        $currency = get_woocommerce_currency();
+        $total_converted = $this->get_order_total();
+        if($currency!='WNET') {
+            $total_converted = WavesExchange::convertToWnet(get_woocommerce_currency(), $this->get_order_total());
+        }
         $total_waves = $total_converted * 100000000;
 		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );

@@ -154,16 +154,16 @@ if (!class_exists('WcWaves')) {
 	    public function convertToWave($price_string, $price)
 	    {
 	        $currency = get_woocommerce_currency();
+            if($currency!='WNET') {
+                $options = get_option('woocommerce_waves_settings');
 
-	        $options = get_option('woocommerce_waves_settings');
-
-	        if ($options['show_prices'] == 'yes') {
-                $wnet_price = WavesExchange::convertToWnet($currency, $price);
-	            if ($wnet_price) {
-	                return $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wnet_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
-	            }
-	        }
-
+                if ($options['show_prices'] == 'yes') {
+                    $wnet_price = WavesExchange::convertToWnet($currency, $price);
+                    if ($wnet_price) {
+                        return $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wnet_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
+                    }
+                }
+            }
 	        return $price_string;
 	    }
     }
