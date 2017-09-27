@@ -41,6 +41,7 @@ Install the plugin by uploading the zipfile in your WP admin interface or via FT
 
 - 0.2.1
 * using wavesplatform.com marketdata api ticker 24h_vwap values for exchange rates
+* using wp_cache with 3600 timeout to retain exchange rates
 - 0.2.0
 * Fixed the WNET code to correctly work with woocommerce again
 * Routed the WNET exchange REST requests the same as the Waves REST requests
