@@ -112,7 +112,9 @@ class WcWavesGateway extends WC_Payment_Gateway
         echo '<div id="waves-qr-code" data-contents="'. $url .'"></div>';
         echo '<div class="separator"></div>';
         echo '<div class="waves-container">';
-        echo '<p>'. sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted) .'</strong>' ) .'</p>';
+        echo '<p>'. sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). <br><br>		
+		<strong>DO NOT FORGET THE ATTACHMENT IF YOU USE MANUAL PAYMENT! </strong><br><br>
+		We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted) .'</strong>' ) .'</p>';
         echo '<p>'. sprintf(__('Please send your payment within %s.', 'waves-gateway-for-woocommerce'), '<strong><span class="waves-countdown" data-minutes="10">10:00</span></strong>' ) .'</p>';
         echo '<p class="small">'. __('When the timer reaches 0 this form will refresh and update the attachment as well as the total amount using the latest conversion rate.', 'waves-gateway-for-woocommerce') .'</p>';
         echo '</div>';
