@@ -8,13 +8,13 @@ Stable tag: 0.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show prices in WAVES and accept Waves payments in your woocommerce webshop
+Show prices in WAVES or any other token on waves and accept payments with that token your woocommerce webshop
 
 == Description ==
 
-Display prices in WAVES and let your clients pay through Waves. Built on top of Ripple Gateway developed by Casper Mekel and uses Base58 library developed by Stephen Hill for encoding and decoding. 
+Display prices in WAVES or token and let your clients pay through the Waves client software. Built on top of Ripple Gateway developed by Casper Mekel and uses Base58 library developed by Stephen Hill for encoding and decoding. 
 
-* Display prices in WAVES in store and on checkout
+* Display prices in WAVES or token in store and on checkout
 * Prices are calculated based on Cryptonator exchange rate
 * Links can be copied by clicking and a QR code is supplied which can be used in the Waves wallet app op iOS and Android
 * Countdown refreshes form each 10 minutes, updating amounts using the most recent conversion reate
