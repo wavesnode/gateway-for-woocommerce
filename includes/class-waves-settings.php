@@ -54,6 +54,24 @@ if (!class_exists('WavesSettings')) {
                         'default' => sha1(get_bloginfo() . Date('U')),
 
                     ),
+                    'asset_id'     => array(
+                        'title'       => __('Asset ID', 'waves-gateway-for-woocommerce'),
+                        'type'        => 'text',
+                        'default'     => '',
+                        'description' => __('This is the asset Id used for transactions.', 'waves-gateway-for-woocommerce'),
+                    ),
+                    'asset_code'     => array(
+                        'title'       => __('Asset code (short name = currency code = currency symbol)', 'waves-gateway-for-woocommerce'),
+                        'type'        => 'text',
+                        'default'     => 'WNET',
+                        'description' => __('This is the Asset Currency code for exchange rates.', 'waves-gateway-for-woocommerce'),
+                    ),
+                    'asset_desciption'     => array(
+                        'title'       => __('Asset description', 'waves-gateway-for-woocommerce'),
+                        'type'        => 'text',
+                        'default'     => 'Wavesnode.NET',
+                        'description' => __('Asset full name', 'waves-gateway-for-woocommerce'),
+                    ),
                 )
             );
         }
