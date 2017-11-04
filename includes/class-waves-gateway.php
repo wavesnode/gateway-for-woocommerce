@@ -14,6 +14,7 @@ class WcWavesGateway extends WC_Payment_Gateway
     public $form_fields;
     public $addresses;
     private $assetId;
+    private $assetCode;
 
     public function __construct()
     {
@@ -26,6 +27,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->order_button_text 	= __('Awaiting transfer..','waves-gateway-for-woocommerce');
         $this->has_fields 			= true;
         $this->assetId              = $this->get_option('asset_id');
+        $this->assetCode            = $this->get_option('asset_code');
 
         $this->initFormFields();
 
@@ -59,8 +61,8 @@ class WcWavesGateway extends WC_Payment_Gateway
     	$woocommerce->cart->get_cart();
         $currency = get_woocommerce_currency();
         $total_converted = $this->get_order_total();
-        if($currency!='WNET') {
-            $total_converted = WavesExchange::convertToWnet(get_woocommerce_currency(), $this->get_order_total());
+        if($currency!=$this->assetCode) {
+            $total_converted = WavesExchange::convertToAsset($currency, $total_converted,$this->assetCode);
         }
         $total_waves = $total_converted * 100000000;
 		

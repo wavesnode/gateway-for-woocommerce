@@ -19,7 +19,7 @@ class WavesExchange
     }
 
     private static function getExchangePrice($currency1,$currency2) {
-        $pair = strtolower($currency1."/".$currency2);
+        $pair = $currency1."/".$currency2;
         $result = wp_cache_get($pair,'exchangePrices');
         if (false === $result ) {
             $result = WavesExchange::getBodyAsJson("http://marketdata.wavesplatform.com/api/ticker/".$pair);
@@ -30,12 +30,15 @@ class WavesExchange
     }
 
     private static function exchange($currency,$price,$currencyTo) {
+        if($currency==$currencyTo) {
+            return price;
+        }
         $exchange_price = WavesExchange::getExchangePrice($currencyTo,$currency);
         return round($price / $exchange_price, 0, PHP_ROUND_HALF_UP);
     }
 
-    public static function convertToWnet($currency, $price) {
-        $price_in_waves = WavesExchange::exchange($currency,$price,'waves');
-        return WavesExchange::exchange('waves',$price_in_waves,'wnet');
+    public static function convertToAsset($currency, $price,$assetCurrency) {
+        $price_in_waves = WavesExchange::exchange(strtolower($currency),$price,'waves');
+        return WavesExchange::exchange('waves',$price_in_waves,strtolower($assetCurrency));
     }
 }
