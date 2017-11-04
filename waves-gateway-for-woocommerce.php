@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Waves Gateway for Woocommerce
+ * WNET Gateway for Woocommerce
  *
- * Plugin Name: WNET Gateway for Woocommerce
+ * Plugin Name: WNET Gateway for Woocommerce (also for other Waves assets)
  * Plugin URI: https://uwtoken.com
  * Description: Show prices in WNET and accept WNET payments in your woocommerce webshop
  * Version: 0.1.3
@@ -90,8 +90,8 @@ if (!class_exists('WcWaves')) {
 	        include_once plugin_basename('includes/class-waves-settings.php');
 	        include_once plugin_basename('includes/class-waves-ajax.php');
 	        
-            add_filter('woocommerce_currencies', array($this, 'WnetCurrency'));
-            add_filter('woocommerce_currency_symbol', array($this, 'WnetCurrencySymbol'), 10, 2);
+            add_filter('woocommerce_currencies', array($this, 'AddWavesAssetCurrency'));
+            add_filter('woocommerce_currency_symbol', array($this, 'AddWavesAssetCurrencySymbol'), 10, 2);
 	        add_filter('woocommerce_payment_gateways', array($this, 'addToGateways'));
 
 	        add_filter('woocommerce_get_price_html', array($this, 'WavesFilterPriceHtml'), 10, 2);
@@ -138,15 +138,19 @@ if (!class_exists('WcWaves')) {
 	        return $price;
 	    }
 
-        public function WnetCurrency( $currencies )
+        public function AddWavesAssetCurrency( $currencies )
         {
-            $currencies['WNET'] = __( 'Wavesnode.NET', 'wnet' );
+            $options = get_option('woocommerce_waves_settings');
+            $asset_code = $options['asset_code'];
+            $currencies[$asset_code] = __( $options['asset_desciption'], $asset_code);
             return $currencies;
         }
 
-        public function WnetCurrencySymbol( $currency_symbol, $currency ) {
+        public function AddWavesAssetCurrencySymbol( $currency_symbol, $currency ) {
+            $options = get_option('woocommerce_waves_settings');
+            $asset_code = $options['asset_code'];
             switch( $currency ) {
-                case 'WNET': $currency_symbol = 'WNET'; break;
+                case $asset_code: $currency_symbol = $asset_code; break;
             }
             return $currency_symbol;
         }
