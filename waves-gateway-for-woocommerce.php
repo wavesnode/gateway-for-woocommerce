@@ -110,32 +110,29 @@ if (!class_exists('WcWaves')) {
 
 	    public function WavesFilterCartTotal($value)
 	    {
-	        $total = WC()->cart->total;
-	        $value = $this->convertToAssetPrice($value, $total);
-	        return $value;
+	        return $this->convertToAssetPrice($value, WC()->cart->total);
 	    }
+
 	    public function WavesFilterCartItemSubtotal($cart_subtotal, $compound, $that)
 	    {
-	        $cart_subtotal = $this->convertToAssetPrice($cart_subtotal, $that->subtotal);
-	        return $cart_subtotal;
+	        return $this->convertToAssetPrice($cart_subtotal, $that->subtotal);
 	    }
 
 	    public function WavesFilterPriceHtml($price, $that)
 	    {
-	        $price = $this->convertToAssetPrice($price, $that->price);
-	        return $price;
+	        return $this->convertToAssetPrice($price, $that->price);
 	    }
 
 	    public function WavesFilterCartItemPrice($price, $cart_item, $cart_item_key)
 	    {
-	        $price = $this->convertToAssetPrice($price, ($cart_item['line_subtotal'] + $cart_item['line_subtotal_tax']) / $cart_item['quantity']);
-	        return $price;
+	        $item_price = ($cart_item['line_subtotal'] + $cart_item['line_subtotal_tax']) / $cart_item['quantity'];
+	        return $this->convertToAssetPrice($price,$item_price);
 	    }
 
 	    public function WavesFilterCartSubtotal($price, $cart_item, $cart_item_key)
 	    {
-	        $price = $this->convertToAssetPrice($price, $cart_item['line_subtotal'] + $cart_item['line_subtotal_tax']);
-	        return $price;
+	        $subtotal = $cart_item['line_subtotal'] + $cart_item['line_subtotal_tax'];
+	        return $this->convertToAssetPrice($price, $subtotal);
 	    }
 
         public function AddWavesAssetCurrency( $currencies )
@@ -146,7 +143,8 @@ if (!class_exists('WcWaves')) {
             return $currencies;
         }
 
-        public function AddWavesAssetCurrencySymbol( $currency_symbol, $currency ) {
+        public function AddWavesAssetCurrencySymbol( $currency_symbol, $currency )
+        {
             $options = get_option('woocommerce_waves_settings');
             $asset_code = $options['asset_code'];
             switch( $currency ) {
