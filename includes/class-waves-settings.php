@@ -57,7 +57,7 @@ if (!class_exists('WavesSettings')) {
                     'asset_id'     => array(
                         'title'       => __('Asset ID', 'waves-gateway-for-woocommerce'),
                         'type'        => 'text',
-                        'default'     => '',
+                        'default'     => 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym',
                         'description' => __('This is the asset Id used for transactions.', 'waves-gateway-for-woocommerce'),
                     ),
                     'asset_code'     => array(

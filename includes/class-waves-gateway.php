@@ -13,7 +13,7 @@ class WcWavesGateway extends WC_Payment_Gateway
     public $title;
     public $form_fields;
     public $addresses;
-    private $assetId = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';//WNET
+    private $assetId;
 
     public function __construct()
     {
@@ -25,6 +25,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->secret   			= $this->get_option('secret');
         $this->order_button_text 	= __('Awaiting transfer..','waves-gateway-for-woocommerce');
         $this->has_fields 			= true;
+        $this->assetId              = $this->get_option('asset_id');
 
         $this->initFormFields();
 
