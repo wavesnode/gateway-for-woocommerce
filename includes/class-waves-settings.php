@@ -66,7 +66,7 @@ if (!class_exists('WavesSettings')) {
                         'default'     => 'WNET',
                         'description' => __('This is the Asset Currency code for exchange rates.', 'waves-gateway-for-woocommerce'),
                     ),
-                    'asset_desciption'     => array(
+                    'asset_description'     => array(
                         'title'       => __('Asset description', 'waves-gateway-for-woocommerce'),
                         'type'        => 'text',
                         'default'     => 'Wavesnode.NET',

@@ -137,18 +137,14 @@ if (!class_exists('WcWaves')) {
 
         public function AddWavesAssetCurrency( $currencies )
         {
-            $options = get_option('woocommerce_waves_settings');
-            $asset_code = $options['asset_code'];
-            $currencies[$asset_code] = __( $options['asset_desciption'], $asset_code);
+            $currencies['WNET'] = __( 'Wavesnode.NET', 'wnet' );
             return $currencies;
         }
 
         public function AddWavesAssetCurrencySymbol( $currency_symbol, $currency )
         {
-            $options = get_option('woocommerce_waves_settings');
-            $asset_code = $options['asset_code'];
             switch( $currency ) {
-                case $asset_code: $currency_symbol = $asset_code; break;
+                case 'WNET': $currency_symbol = 'WNET'; break;
             }
             return $currency_symbol;
         }
