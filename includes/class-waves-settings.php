@@ -42,13 +42,6 @@ if (!class_exists('WavesSettings')) {
                         'default'     => '',
                         'description' => __('This addresses will be used for receiving funds.', 'waves-gateway-for-woocommerce'),
                     ),
-                    'show_prices' => array(
-                        'title'   => __('Convert prices', 'waves-gateway-for-woocommerce'),
-                        'type'    => 'checkbox',
-                        'label'   => __('Add prices in WAVES', 'waves-gateway-for-woocommerce'),
-                        'default' => 'no',
-
-                    ),
                     'secret'      => array(
                         'type'    => 'hidden',
                         'default' => sha1(get_bloginfo() . Date('U')),
