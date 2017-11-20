@@ -93,13 +93,6 @@ if (!class_exists('WcWaves')) {
             add_filter('woocommerce_currencies', array($this, 'WnetCurrency'));
             add_filter('woocommerce_currency_symbol', array($this, 'WnetCurrencySymbol'), 10, 2);
 	        add_filter('woocommerce_payment_gateways', array($this, 'addToGateways'));
-
-	        add_filter('woocommerce_get_price_html', array($this, 'WavesFilterPriceHtml'), 10, 2);
-	        add_filter('woocommerce_cart_item_price', array($this, 'WavesFilterCartItemPrice'), 10, 3);
-	        add_filter('woocommerce_cart_item_subtotal', array($this, 'WavesFilterCartItemSubtotal'), 10, 3);
-	        add_filter('woocommerce_cart_subtotal', array($this, 'WavesFilterCartSubtotal'), 10, 3);
-	        add_filter('woocommerce_cart_totals_order_total_html', array($this, 'WavesFilterCartTotal'), 10, 1);
-
 	    }
 
 	    public static function addToGateways($gateways)
@@ -108,35 +101,6 @@ if (!class_exists('WcWaves')) {
 	        return $gateways;
 	    }
 
-	    public function WavesFilterCartTotal($value)
-	    {
-	        $total = WC()->cart->total;
-	        $value = $this->convertToWave($value, $total);
-	        return $value;
-	    }
-	    public function WavesFilterCartItemSubtotal($cart_subtotal, $compound, $that)
-	    {
-	        $cart_subtotal = $this->convertToWave($cart_subtotal, $that->subtotal);
-	        return $cart_subtotal;
-	    }
-
-	    public function WavesFilterPriceHtml($price, $that)
-	    {
-	        $price = $this->convertToWave($price, $that->price);
-	        return $price;
-	    }
-
-	    public function WavesFilterCartItemPrice($price, $cart_item, $cart_item_key)
-	    {
-	        $price = $this->convertToWave($price, ($cart_item['line_subtotal'] + $cart_item['line_subtotal_tax']) / $cart_item['quantity']);
-	        return $price;
-	    }
-
-	    public function WavesFilterCartSubtotal($price, $cart_item, $cart_item_key)
-	    {
-	        $price = $this->convertToWave($price, $cart_item['line_subtotal'] + $cart_item['line_subtotal_tax']);
-	        return $price;
-	    }
 
         public function WnetCurrency( $currencies )
         {
@@ -150,22 +114,6 @@ if (!class_exists('WcWaves')) {
             }
             return $currency_symbol;
         }
-
-	    public function convertToWave($price_string, $price)
-	    {
-	        $currency = get_woocommerce_currency();
-            if($currency!='WNET') {
-                $options = get_option('woocommerce_waves_settings');
-
-                if ($options['show_prices'] == 'yes') {
-                    $wnet_price = WavesExchange::convertToWnet($currency, $price);
-                    if ($wnet_price) {
-                        return $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $wnet_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">WNET)</span>';
-                    }
-                }
-            }
-	        return $price_string;
-	    }
     }
 
 }
