@@ -21,7 +21,8 @@ if (!class_exists('WavesSettings')) {
                     'enabled'     => array(
                         'title'   => __('Enable/Disable', 'waves-gateway-for-woocommerce'),
                         'type'    => 'checkbox',
-                        'label'   => __('Enable Waves payments', 'waves-gateway-for-woocommerce'),
+                        'label'   => __('Enable Waves (or assets) payments', 'waves-gateway-for-woocommerce'),
+                        'description' => __('Select the desired Waves (or asset) as Currency (General -> Currency Options).', 'waves-gateway-for-woocommerce'),
                         'default' => 'yes',
                     ),
                     'title'       => array(
