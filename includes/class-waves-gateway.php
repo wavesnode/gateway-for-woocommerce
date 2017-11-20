@@ -9,11 +9,15 @@ if (!defined('ABSPATH')) {
  */
 class WcWavesGateway extends WC_Payment_Gateway
 {
+    const assetIds = array(
+        'WNET' => 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym'
+    );
+
     public $id;
     public $title;
     public $form_fields;
     public $addresses;
-    private $assetId = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';//WNET
+    private $assetId = null;
 
     public function __construct()
     {
@@ -25,6 +29,11 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->secret   			= $this->get_option('secret');
         $this->order_button_text 	= __('Awaiting transfer..','waves-gateway-for-woocommerce');
         $this->has_fields 			= true;
+
+        $currency = get_woocommerce_currency();
+        if(array_key_exists($currency, assetIds)) {
+            $this->assetId = assetIds[$currency];
+        }
 
         $this->initFormFields();
 
@@ -56,11 +65,7 @@ class WcWavesGateway extends WC_Payment_Gateway
     {
     	global $woocommerce;
     	$woocommerce->cart->get_cart();
-        $currency = get_woocommerce_currency();
         $total_converted = $this->get_order_total();
-        if($currency!='WNET') {
-            $total_converted = WavesExchange::convertToWnet(get_woocommerce_currency(), $this->get_order_total());
-        }
         $total_waves = $total_converted * 100000000;
 		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
@@ -74,7 +79,10 @@ class WcWavesGateway extends WC_Payment_Gateway
         echo '<div id="waves-form">';
         //QR uri
         
-		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=".$this->assetId."&attachment=".$destination_tag;
+		$url = "waves://". $this->address ."?amount=". $total_waves."&attachment=".$destination_tag;
+		if($this->assetId!=null) {
+            $url .= "&asset=".$this->assetId;
+        }
 
         echo '<div class="waves-container">';
         echo '<div>';
