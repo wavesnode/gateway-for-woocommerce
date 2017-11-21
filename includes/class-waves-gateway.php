@@ -10,7 +10,8 @@ if (!defined('ABSPATH')) {
 class WcWavesGateway extends WC_Payment_Gateway
 {
     const assetIds = array(
-        'WNET' => 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym'
+        'WNET' => 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym',
+        'CORE' => '3MyMJ9pXLTDnMQhNgoDUBtcfmaGVgnaZNARZwcZzMFk7'
     );
 
     public $id;

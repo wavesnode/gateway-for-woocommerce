@@ -103,6 +103,7 @@ if (!class_exists('WcWaves')) {
 
         public function WavesCurrencies( $currencies )
         {
+            $currencies['CORE'] = __( 'CORE Token', 'core' );
             $currencies['WAVES'] = __( 'Waves', 'waves' );
             $currencies['WNET'] = __( 'Wavesnode.NET', 'wnet' );
             return $currencies;
@@ -110,6 +111,7 @@ if (!class_exists('WcWaves')) {
 
         public function WavesCurrencySymbols( $currency_symbol, $currency ) {
             switch( $currency ) {
+                case 'CORE': $currency_symbol = 'CORE'; break;
                 case 'WAVES': $currency_symbol = 'WAVES'; break;
                 case 'WNET': $currency_symbol = 'WNET'; break;
             }
