@@ -28,13 +28,13 @@ if (!class_exists('WavesSettings')) {
                         'title'       => __('Title', 'waves-gateway-for-woocommerce'),
                         'type'        => 'text',
                         'description' => __('This controls the title which the user sees during checkout.', 'waves-gateway-for-woocommerce'),
-                        'default'     => __('Pay with WAVES', 'waves-gateway-for-woocommerce'),
+                        'default'     => __('Pay with Waves', 'waves-gateway-for-woocommerce'),
                         'desc_tip'    => true,
                     ),
                     'description' => array(
                         'title'   => __('Customer Message', 'waves-gateway-for-woocommerce'),
                         'type'    => 'textarea',
-                        'default' => __('Ultra-fast and secure checkout with WAVES'),
+                        'default' => __('Ultra-fast and secure checkout with Waves'),
                     ),
                     'address'     => array(
                         'title'       => __('Destination address', 'waves-gateway-for-woocommerce'),
@@ -45,7 +45,7 @@ if (!class_exists('WavesSettings')) {
                     'show_prices' => array(
                         'title'   => __('Convert prices', 'waves-gateway-for-woocommerce'),
                         'type'    => 'checkbox',
-                        'label'   => __('Add prices in WAVES', 'waves-gateway-for-woocommerce'),
+                        'label'   => __('Add prices in Waves (or asset)', 'waves-gateway-for-woocommerce'),
                         'default' => 'no',
 
                     ),
