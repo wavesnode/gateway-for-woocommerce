@@ -154,7 +154,7 @@ if (!class_exists('WcWaves')) {
             $options = get_option('woocommerce_waves_settings');
 	        $currency = get_woocommerce_currency();
 	        $assetCurrency = $options['asset_code'];
-            if($currency!=$assetCurrency && $options['show_prices'] == 'yes') {
+            if($assetCurrency && $currency!=$assetCurrency && $options['show_prices'] == 'yes') {
                 $asset_price = WavesExchange::convertToAsset($currency, $price,$assetCurrency);
                 if ($asset_price) {
                     $asset_symbol = $options['asset_code'];
