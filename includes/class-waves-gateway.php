@@ -73,61 +73,69 @@ class WcWavesGateway extends WC_Payment_Gateway
         WC()->session->set('waves_payment_total', $total_waves);
         WC()->session->set('waves_destination_tag', $destination_tag_encoded);
         WC()->session->set('waves_data_hash', sha1( $this->secret . $total_converted ));
-
-        echo '<div id="waves-form">';
         //QR uri
-        
-		$url = "waves://". $this->address ."?amount=". $total_waves."&asset=".$this->assetId."&attachment=".$destination_tag;
-
-        echo '<div class="waves-container">';
-        echo '<div>';
-      
-
-        if ($this->description) {
-        	echo '<div class="separator"></div>';
-        	echo '<div id="waves-description">';
-            echo apply_filters( 'wc_waves_description', wpautop(  $this->description ) );
-            echo '</div>';
-        }
-
-
-        echo '<div class="separator"></div>';
-        echo '<div class="waves-container">';
-        
-        // echo $destination_tag_encoded;
-        
-        $fiat_total = $this->get_order_total();
-        $rate = $total_converted / $fiat_total;
-        echo '<label class="waves-label">(1'. get_woocommerce_currency() .' = '.round($rate,6).' WNET)</label>';
-        echo '<p class="waves-amount"><span class="copy" data-success-label="'. __('copied','waves-gateway-for-woocommerce') .'" data-clipboard-text="' . esc_attr($total_converted) . '">' . esc_attr($total_converted) . '</span></p>';
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="separator"></div>';
-        echo '<div class="waves-container">';
-        echo '<label class="waves-label">' . __('destination address', 'waves-gateway-for-woocommerce') . '</label>';
-        echo '<p class="waves-address"><span class="copy" data-success-label="'. __('copied','waves-gateway-for-woocommerce') .'" data-clipboard-text="' . esc_attr($this->address) . '">' . esc_attr($this->address) . '</span></p>';
-        echo '</div>';
-        echo '<div class="separator"></div>';
-        echo '<div class="waves-container">';
-        echo '<label class="waves-label">' . __('attachment', 'waves-gateway-for-woocommerce') . '</label>';
-        echo '<p class="waves-address"><span class="copy" data-success-label="'. __('copied','waves-gateway-for-woocommerce') .'" data-clipboard-text="' . esc_attr($destination_tag) . '">' . esc_attr($destination_tag) . '</span></p>';
-        echo '</div>';
-        echo '<div class="separator"></div>';
-
-        echo '</div>';
-        echo '<div id="waves-qr-code" data-contents="'. $url .'"></div>';
-        echo '<div class="separator"></div>';
-        echo '<div class="waves-container">';
-        echo '<p>'. sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). <br><br>		
-		<strong>DO NOT FORGET THE ATTACHMENT IF YOU USE MANUAL PAYMENT! </strong><br><br>
-		We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted) .'</strong>' ) .'</p>';
-        echo '<p>'. sprintf(__('Please send your payment within %s.', 'waves-gateway-for-woocommerce'), '<strong><span class="waves-countdown" data-minutes="10">10:00</span></strong>' ) .'</p>';
-        echo '<p class="small">'. __('When the timer reaches 0 this form will refresh and update the attachment as well as the total amount using the latest conversion rate.', 'waves-gateway-for-woocommerce') .'</p>';
-        echo '</div>';
-        
-        echo '<input type="hidden" name="tx_hash" id="tx_hash" value="0"/>';
-        echo '</div>';
-
+        $url = "waves://". $this->address ."?amount=". $total_waves."&asset=".$this->assetId."&attachment=".$destination_tag;
+        ?>
+        <div id="waves-form">
+            <div class="waves-container">
+            <div>
+                <?if ($this->description) { ?>
+                <div class="separator"></div>
+                <div id="waves-description">
+                    <?=apply_filters( 'wc_waves_description', wpautop(  $this->description ) )?>
+                </div>
+                <?}?>
+                <div class="separator"></div>
+                <div class="waves-container">
+                <?
+                $fiat_total = $this->get_order_total();
+                $rate = $total_converted / $fiat_total;
+                ?>
+                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> WNET)</label>
+                <p class="waves-amount">
+                    <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
+                          data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>
+                    </span>
+                </p>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="waves-container">
+                <label class="waves-label"><?=__('destination address', 'waves-gateway-for-woocommerce')?></label>
+                <p class="waves-address">
+                    <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
+                          data-clipboard-text="<?=esc_attr($this->address)?>"><?=esc_attr($this->address)?>
+                    </span>
+                </p>
+            </div>
+            <div class="separator"></div>
+            <div class="waves-container">
+                <label class="waves-label"><?=__('attachment', 'waves-gateway-for-woocommerce')?></label>';
+                <p class="waves-address">
+                    <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
+                          data-clipboard-text="<?=esc_attr($destination_tag)?>"><?=esc_attr($destination_tag)?>
+                    </span>
+                </p>
+            </div>
+            <div class="separator"></div>
+            </div>
+            <div id="waves-qr-code" data-contents="<?=$url?>"></div>
+            <div class="separator"></div>
+            <div class="waves-container">
+                <p>
+                    <?=sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted) .'</strong>' )?>
+                </p>
+                <strong>DO NOT FORGET THE ATTACHMENT IF YOU USE MANUAL PAYMENT! </strong>
+                <p>
+                    <?=sprintf(__('Please send your payment within %s.', 'waves-gateway-for-woocommerce'), '<strong><span class="waves-countdown" data-minutes="10">10:00</span></strong>' )?>
+                </p>
+                <p class="small">
+                    <?=__('When the timer reaches 0 this form will refresh and update the attachment as well as the total amount using the latest conversion rate.', 'waves-gateway-for-woocommerce')?>
+                </p>
+            </div>
+            <input type="hidden" name="tx_hash" id="tx_hash" value="0"/>
+        </div>
+        <?
     }
 
     public function process_payment( $order_id ) 
