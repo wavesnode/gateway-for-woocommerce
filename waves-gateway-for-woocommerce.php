@@ -110,29 +110,29 @@ if (!class_exists('WcWaves')) {
 
 	    public function WavesFilterCartTotal($value)
 	    {
-	        return $this->convertToAssetPrice($value, WC()->cart->total);
+	        return $this->convertToWavesPrice($value, WC()->cart->total);
 	    }
 
 	    public function WavesFilterCartItemSubtotal($cart_subtotal, $compound, $that)
 	    {
-	        return $this->convertToAssetPrice($cart_subtotal, $that->subtotal);
+	        return $this->convertToWavesPrice($cart_subtotal, $that->subtotal);
 	    }
 
 	    public function WavesFilterPriceHtml($price, $that)
 	    {
-	        return $this->convertToAssetPrice($price, $that->price);
+	        return $this->convertToWavesPrice($price, $that->price);
 	    }
 
 	    public function WavesFilterCartItemPrice($price, $cart_item, $cart_item_key)
 	    {
 	        $item_price = ($cart_item['line_subtotal'] + $cart_item['line_subtotal_tax']) / $cart_item['quantity'];
-	        return $this->convertToAssetPrice($price,$item_price);
+	        return $this->convertToWavesPrice($price,$item_price);
 	    }
 
 	    public function WavesFilterCartSubtotal($price, $cart_item, $cart_item_key)
 	    {
 	        $subtotal = $cart_item['line_subtotal'] + $cart_item['line_subtotal_tax'];
-	        return $this->convertToAssetPrice($price, $subtotal);
+	        return $this->convertToWavesPrice($price, $subtotal);
 	    }
 
         public function AddWavesAssetCurrency( $currencies )
@@ -149,7 +149,7 @@ if (!class_exists('WcWaves')) {
             return $currency_symbol;
         }
 
-	    private function convertToAssetPrice($price_string, $price)
+	    private function convertToWavesPrice($price_string, $price)
 	    {
             $options = get_option('woocommerce_waves_settings');
 	        $currency = get_woocommerce_currency();
