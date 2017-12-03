@@ -57,19 +57,19 @@ if (!class_exists('WavesSettings')) {
                     'asset_id'     => array(
                         'title'       => __('Asset ID', 'waves-gateway-for-woocommerce'),
                         'type'        => 'text',
-                        'default'     => 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym',
+                        'default'     => null,
                         'description' => __('This is the asset Id used for transactions.', 'waves-gateway-for-woocommerce'),
                     ),
                     'asset_code'     => array(
                         'title'       => __('Asset code (short name = currency code = currency symbol)', 'waves-gateway-for-woocommerce'),
                         'type'        => 'text',
-                        'default'     => 'WNET',
-                        'description' => __('This is the Asset Currency code for exchange rates.', 'waves-gateway-for-woocommerce'),
+                        'default'     => null,
+                        'description' => __('This is the Asset Currency code for exchange rates. If omitted Waves will be used', 'waves-gateway-for-woocommerce'),
                     ),
                     'asset_description'     => array(
                         'title'       => __('Asset description', 'waves-gateway-for-woocommerce'),
                         'type'        => 'text',
-                        'default'     => 'Wavesnode.NET',
+                        'default'     => null,
                         'description' => __('Asset full name', 'waves-gateway-for-woocommerce'),
                     ),
                 )
