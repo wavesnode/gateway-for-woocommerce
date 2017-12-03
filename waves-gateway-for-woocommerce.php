@@ -1,13 +1,13 @@
 <?php
 
 /**
- * WNET Gateway for Woocommerce
+ * Waves Gateway for Woocommerce
  *
  * Plugin Name: WNET Gateway for Woocommerce (also for other Waves assets)
  * Plugin URI: https://uwtoken.com
- * Description: Show prices in WNET and accept WNET payments in your woocommerce webshop
- * Version: 0.1.3
- * Author: John Doe / Useless Waves Token
+ * Description: Show prices in Waves (or asset) and accept Waves payments in your woocommerce webshop
+ * Version: 0.3.0
+ * Author: John Doe / Useless Waves Token / Tubby
  * License: GPLv2 or later
  * License URI: http://www.opensource.org/licenses/gpl-license.php
  * Text Domain: waves-gateway-for-woocommerce
