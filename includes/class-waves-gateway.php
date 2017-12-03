@@ -90,7 +90,7 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <div class="separator"></div>
                 <div class="waves-container">
-                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> $this->assetCode)</label>
+                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> <?=$this->assetCode?>)</label>
                 <p class="waves-amount">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
                           data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>
