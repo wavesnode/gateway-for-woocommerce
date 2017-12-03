@@ -89,11 +89,8 @@ if (!class_exists('WcWaves')) {
 	        include_once plugin_basename('includes/class-waves-exchange.php');
 	        include_once plugin_basename('includes/class-waves-settings.php');
 	        include_once plugin_basename('includes/class-waves-ajax.php');
-	        
-            add_filter('woocommerce_currencies', array($this, 'AddWavesAssetCurrency'));
-            add_filter('woocommerce_currency_symbol', array($this, 'AddWavesAssetCurrencySymbol'), 10, 2);
-	        add_filter('woocommerce_payment_gateways', array($this, 'addToGateways'));
 
+	        add_filter('woocommerce_payment_gateways', array($this, 'addToGateways'));
 	        add_filter('woocommerce_get_price_html', array($this, 'WavesFilterPriceHtml'), 10, 2);
 	        add_filter('woocommerce_cart_item_price', array($this, 'WavesFilterCartItemPrice'), 10, 3);
 	        add_filter('woocommerce_cart_item_subtotal', array($this, 'WavesFilterCartItemSubtotal'), 10, 3);
@@ -134,20 +131,6 @@ if (!class_exists('WcWaves')) {
 	        $subtotal = $cart_item['line_subtotal'] + $cart_item['line_subtotal_tax'];
 	        return $this->convertToWavesPrice($price, $subtotal);
 	    }
-
-        public function AddWavesAssetCurrency( $currencies )
-        {
-            $currencies['WNET'] = __( 'Wavesnode.NET', 'wnet' );
-            return $currencies;
-        }
-
-        public function AddWavesAssetCurrencySymbol( $currency_symbol, $currency )
-        {
-            switch( $currency ) {
-                case 'WNET': $currency_symbol = 'WNET'; break;
-            }
-            return $currency_symbol;
-        }
 
 	    private function convertToWavesPrice($price_string, $price)
 	    {
