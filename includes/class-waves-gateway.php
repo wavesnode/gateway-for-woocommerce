@@ -28,7 +28,9 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->has_fields 			= true;
         $this->assetId              = $this->get_option('asset_id');
         $this->assetCode            = $this->get_option('asset_code');
-
+        if(empty($this->assetCode)) {
+            $this->assetCode = 'Waves';
+        }
         $this->initFormFields();
 
         $this->initSettings();
@@ -59,11 +61,10 @@ class WcWavesGateway extends WC_Payment_Gateway
     {
     	global $woocommerce;
     	$woocommerce->cart->get_cart();
-        $currency = get_woocommerce_currency();
-        $total_converted = $this->get_order_total();
-        if($currency!=$this->assetCode) {
-            $total_converted = WavesExchange::convertToAsset($currency, $total_converted,$this->assetCode);
-        }
+        $fiat_currency = get_woocommerce_currency();
+        $fiat_total = $this->get_order_total();
+        $total_converted = WavesExchange::convertToAsset($fiat_currency, $fiat_total,$this->assetCode);
+        $rate = $total_converted / $fiat_total;
         $total_waves = $total_converted * 100000000;
 		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
@@ -89,11 +90,7 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <div class="separator"></div>
                 <div class="waves-container">
-                <?
-                $fiat_total = $this->get_order_total();
-                $rate = $total_converted / $fiat_total;
-                ?>
-                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> WNET)</label>
+                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> $this->assetCode)</label>
                 <p class="waves-amount">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
                           data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>

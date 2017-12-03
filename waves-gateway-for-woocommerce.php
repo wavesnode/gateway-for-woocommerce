@@ -152,13 +152,14 @@ if (!class_exists('WcWaves')) {
 	    private function convertToWavesPrice($price_string, $price)
 	    {
             $options = get_option('woocommerce_waves_settings');
-	        $currency = get_woocommerce_currency();
-	        $assetCurrency = $options['asset_code'];
-            if($assetCurrency && $currency!=$assetCurrency && $options['show_prices'] == 'yes') {
-                $asset_price = WavesExchange::convertToAsset($currency, $price,$assetCurrency);
-                if ($asset_price) {
-                    $asset_symbol = $options['asset_code'];
-                    return $price_string . '&nbsp;(<span class="woocommerce-price-amount amount">' . $asset_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">'.$asset_symbol.')</span>';
+            if($options['show_prices'] == 'yes') {
+                $waves_currency = $options['asset_code'];
+                if(empty($waves_currency)) {
+                    $waves_currency = 'Waves';
+                }
+                $waves_price = WavesExchange::convertToAsset(get_woocommerce_currency(), $price,$waves_currency);
+                if ($waves_price) {
+                    $price_string .= '&nbsp;(<span class="woocommerce-price-amount amount">' . $waves_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">'.$waves_currency.')</span>';
                 }
             }
 	        return $price_string;
