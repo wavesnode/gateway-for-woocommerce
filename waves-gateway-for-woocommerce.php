@@ -112,6 +112,7 @@ if (!class_exists('WcWaves')) {
         {
             $currencies['WAVES'] = __( 'Waves', 'waves' );
             $currencies['WNET'] = __( 'Wavesnode.NET', 'wnet' );
+            $currencies['ARTcoin'] = __( 'ARTcoin', 'ARTcoin' );
             return $currencies;
         }
 
@@ -119,6 +120,7 @@ if (!class_exists('WcWaves')) {
             switch( $currency ) {
                 case 'WAVES': $currency_symbol = 'WAVES'; break;
                 case 'WNET': $currency_symbol = 'WNET'; break;
+                case 'ARTcoin': $currency_symbol = 'ARTcoin'; break;
             }
             return $currency_symbol;
         }
@@ -153,7 +155,7 @@ if (!class_exists('WcWaves')) {
 	    private function convertToWavesPrice($price_string, $price)
 	    {
             $options = get_option('woocommerce_waves_settings');
-            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET")) && $options['show_prices'] == 'yes') {
+            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin")) && $options['show_prices'] == 'yes') {
                 $waves_currency = $options['asset_code'];
                 if(empty($waves_currency)) {
                     $waves_currency = 'Waves';

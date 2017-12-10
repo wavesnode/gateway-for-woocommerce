@@ -37,6 +37,9 @@ class WcWavesGateway extends WC_Payment_Gateway
             } else if (get_woocommerce_currency() == "WNET") {
                 $this->assetCode = 'WNET';
                 $this->assetId = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';
+            } else if (get_woocommerce_currency() == "ARTcoin") {
+                $this->assetCode = 'ARTcoin';
+                $this->assetId = 'GQe2a2uReaEiHLdjzC8q4Popr9tnKonEpcaihEoZrNiR';
             }
         } else {
             $this->assetId              = $this->get_option('asset_id');
