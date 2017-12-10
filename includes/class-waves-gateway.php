@@ -15,6 +15,7 @@ class WcWavesGateway extends WC_Payment_Gateway
     public $addresses;
     private $assetId;
     private $assetCode;
+    private $currencyIsWaves = false;
 
     public function __construct()
     {
@@ -26,11 +27,25 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->secret   			= $this->get_option('secret');
         $this->order_button_text 	= __('Awaiting transfer..','waves-gateway-for-woocommerce');
         $this->has_fields 			= true;
-        $this->assetId              = $this->get_option('asset_id');
-        $this->assetCode            = $this->get_option('asset_code');
-        if(empty($this->assetCode)) {
-            $this->assetCode = 'Waves';
+
+        // assetCode+id if woocommerce_currency is set to Waves-like currency
+        $currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin"));
+        if($currencyIsWaves) {
+            if (get_woocommerce_currency() == "Waves") {
+                $this->assetCode = 'Waves';
+                $this->assetId = null;
+            } else if (get_woocommerce_currency() == "WNET") {
+                $this->assetCode = 'WNET';
+                $this->assetId = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';
+            }
+        } else {
+            $this->assetId              = $this->get_option('asset_id');
+            $this->assetCode            = $this->get_option('asset_code');
+            if(empty($this->assetCode)) {
+                $this->assetCode = 'Waves';
+            }
         }
+
         $this->initFormFields();
 
         $this->initSettings();
@@ -61,10 +76,12 @@ class WcWavesGateway extends WC_Payment_Gateway
     {
     	global $woocommerce;
     	$woocommerce->cart->get_cart();
-        $fiat_currency = get_woocommerce_currency();
-        $fiat_total = $this->get_order_total();
-        $total_converted = WavesExchange::convertToAsset($fiat_currency, $fiat_total,$this->assetCode);
-        $rate = $total_converted / $fiat_total;
+        $total_converted = $this->get_order_total();
+        $rate = null;
+        if(!$this->currencyIsWaves) {
+            $total_converted = WavesExchange::convertToAsset(get_woocommerce_currency(), $total_converted,$this->assetCode);
+            $rate = $total_converted / $this->get_order_total();
+        }
         $total_waves = $total_converted * 100000000;
 		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
@@ -90,7 +107,11 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <div class="separator"></div>
                 <div class="waves-container">
-                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> <?=$this->assetCode?>)</label>
+                <?if(!$this->currencyIsWaves){?>
+                <label class="waves-label">
+                    (1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> <?=$this->assetCode?>)
+                </label>
+                <?}?>
                 <p class="waves-amount">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
                           data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>
