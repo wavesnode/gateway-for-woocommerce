@@ -121,7 +121,7 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <p class="waves-amount">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
-                          data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>
+                          data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?> <?=$this->assetCode?>
                     </span>
                 </p>
                 </div>
@@ -150,7 +150,7 @@ class WcWavesGateway extends WC_Payment_Gateway
             <div class="separator"></div>
             <div class="waves-container">
                 <p>
-                    <?=sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted) .'</strong>' )?>
+                    <?=sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted).' '.$this->assetCode.'</strong>' )?>
                 </p>
                 <strong>DO NOT FORGET THE ATTACHMENT IF YOU USE MANUAL PAYMENT! </strong>
                 <p>
