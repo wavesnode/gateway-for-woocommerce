@@ -121,8 +121,8 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <p class="waves-amount">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
-                          data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?> <?=$this->assetCode?>
-                    </span>
+                          data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>
+                    </span> <strong><?=$this->assetCode?></strong>
                 </p>
                 </div>
             </div>
