@@ -30,15 +30,18 @@ class WavesExchange
     }
 
     private static function exchange($currency,$price,$currencyTo) {
-        if($currency==$currencyTo) {
-            return price;
-        }
         $exchange_price = WavesExchange::getExchangePrice($currencyTo,$currency);
+        if(!$exchange_price || $exchange_price==0 || $price==null) {
+            return null;
+        }
         return round($price / $exchange_price, 0, PHP_ROUND_HALF_UP);
     }
 
-    public static function convertToAsset($currency, $price,$assetCurrency) {
+    public static function convertToAsset($currency, $price,$assetId) {
         $price_in_waves = WavesExchange::exchange(strtolower($currency),$price,'waves');
-        return WavesExchange::exchange('waves',$price_in_waves,strtolower($assetCurrency));
+        if($assetId==null) {
+            return $price_in_waves;
+        }
+        return WavesExchange::exchange('waves',$price_in_waves,$assetId);
     }
 }

@@ -160,7 +160,11 @@ if (!class_exists('WcWaves')) {
                 if(empty($waves_currency)) {
                     $waves_currency = 'Waves';
                 }
-                $waves_price = WavesExchange::convertToAsset(get_woocommerce_currency(), $price,$waves_currency);
+                $waves_assetId = $options['asset_id'];
+                if(empty($waves_assetId)) {
+                    $waves_assetId = null;
+                }
+                $waves_price = WavesExchange::convertToAsset(get_woocommerce_currency(), $price,$waves_assetId);
                 if ($waves_price) {
                     $price_string .= '&nbsp;(<span class="woocommerce-price-amount amount">' . $waves_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">'.$waves_currency.')</span>';
                 }

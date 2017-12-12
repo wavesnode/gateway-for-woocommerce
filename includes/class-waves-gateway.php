@@ -29,8 +29,8 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->has_fields 			= true;
 
         // assetCode+id if woocommerce_currency is set to Waves-like currency
-        $currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin"));
-        if($currencyIsWaves) {
+        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin"));
+        if($this->currencyIsWaves) {
             if (get_woocommerce_currency() == "Waves") {
                 $this->assetCode = 'Waves';
                 $this->assetId = null;
@@ -44,9 +44,13 @@ class WcWavesGateway extends WC_Payment_Gateway
         } else {
             $this->assetId              = $this->get_option('asset_id');
             $this->assetCode            = $this->get_option('asset_code');
-            if(empty($this->assetCode)) {
-                $this->assetCode = 'Waves';
-            }
+
+        }
+        if(empty($this->assetId)) {
+            $this->assetId = null;
+        }
+        if(empty($this->assetCode)) {
+            $this->assetCode = 'Waves';
         }
 
         $this->initFormFields();
@@ -82,7 +86,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $total_converted = $this->get_order_total();
         $rate = null;
         if(!$this->currencyIsWaves) {
-            $total_converted = WavesExchange::convertToAsset(get_woocommerce_currency(), $total_converted,$this->assetCode);
+            $total_converted = WavesExchange::convertToAsset(get_woocommerce_currency(), $total_converted,$this->assetId);
             $rate = $total_converted / $this->get_order_total();
         }
         $total_waves = $total_converted * 100000000;
@@ -110,7 +114,7 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <div class="separator"></div>
                 <div class="waves-container">
-                <?if(!$this->currencyIsWaves){?>
+                <?if($rate!=null){?>
                 <label class="waves-label">
                     (1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> <?=$this->assetCode?>)
                 </label>
