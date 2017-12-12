@@ -6,7 +6,7 @@
  * Plugin Name: WNET Gateway for Woocommerce (also for other Waves assets)
  * Plugin URI: https://github.com/wavesnode/gateway-for-woocommerce/
  * Description: Show prices in Waves (or asset) and accept Waves payments in your woocommerce webshop
- * Version: 0.3.0
+ * Version: 0.4.0
  * Author: Tubby / Useless Waves Token
  * License: GPLv2 or later
  * License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -40,7 +40,7 @@ if (!class_exists('WcWaves')) {
     {
 
         private static $instance;
-        public static $version = '0.3.0';
+        public static $version = '0.4.0';
         public static $plugin_basename;
         public static $plugin_path;
         public static $plugin_url;
