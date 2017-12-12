@@ -4,10 +4,10 @@
  * Waves Gateway for Woocommerce
  *
  * Plugin Name: WNET Gateway for Woocommerce (also for other Waves assets)
- * Plugin URI: https://uwtoken.com
+ * Plugin URI: https://github.com/wavesnode/gateway-for-woocommerce/
  * Description: Show prices in Waves (or asset) and accept Waves payments in your woocommerce webshop
  * Version: 0.3.0
- * Author: John Doe / Useless Waves Token / Tubby
+ * Author: Tubby / Useless Waves Token
  * License: GPLv2 or later
  * License URI: http://www.opensource.org/licenses/gpl-license.php
  * Text Domain: waves-gateway-for-woocommerce
@@ -40,7 +40,7 @@ if (!class_exists('WcWaves')) {
     {
 
         private static $instance;
-        public static $version = '0.2.2';
+        public static $version = '0.3.0';
         public static $plugin_basename;
         public static $plugin_path;
         public static $plugin_url;
@@ -91,6 +91,9 @@ if (!class_exists('WcWaves')) {
 	        include_once plugin_basename('includes/class-waves-ajax.php');
 
 	        add_filter('woocommerce_payment_gateways', array($this, 'addToGateways'));
+            add_filter('woocommerce_currencies', array($this, 'WavesCurrencies'));
+            add_filter('woocommerce_currency_symbol', array($this, 'WavesCurrencySymbols'), 10, 2);
+
 	        add_filter('woocommerce_get_price_html', array($this, 'WavesFilterPriceHtml'), 10, 2);
 	        add_filter('woocommerce_cart_item_price', array($this, 'WavesFilterCartItemPrice'), 10, 3);
 	        add_filter('woocommerce_cart_item_subtotal', array($this, 'WavesFilterCartItemSubtotal'), 10, 3);
@@ -104,6 +107,23 @@ if (!class_exists('WcWaves')) {
 	        $gateways['waves'] = 'WcWavesGateway';
 	        return $gateways;
 	    }
+
+        public function WavesCurrencies( $currencies )
+        {
+            $currencies['WAVES'] = __( 'Waves', 'waves' );
+            $currencies['WNET'] = __( 'Wavesnode.NET', 'wnet' );
+            $currencies['ARTcoin'] = __( 'ARTcoin', 'ARTcoin' );
+            return $currencies;
+        }
+
+        public function WavesCurrencySymbols( $currency_symbol, $currency ) {
+            switch( $currency ) {
+                case 'WAVES': $currency_symbol = 'WAVES'; break;
+                case 'WNET': $currency_symbol = 'WNET'; break;
+                case 'ARTcoin': $currency_symbol = 'ARTcoin'; break;
+            }
+            return $currency_symbol;
+        }
 
 	    public function WavesFilterCartTotal($value)
 	    {
@@ -135,12 +155,16 @@ if (!class_exists('WcWaves')) {
 	    private function convertToWavesPrice($price_string, $price)
 	    {
             $options = get_option('woocommerce_waves_settings');
-            if($options['show_prices'] == 'yes') {
+            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin")) && $options['show_prices'] == 'yes') {
                 $waves_currency = $options['asset_code'];
                 if(empty($waves_currency)) {
                     $waves_currency = 'Waves';
                 }
-                $waves_price = WavesExchange::convertToAsset(get_woocommerce_currency(), $price,$waves_currency);
+                $waves_assetId = $options['asset_id'];
+                if(empty($waves_assetId)) {
+                    $waves_assetId = null;
+                }
+                $waves_price = WavesExchange::convertToAsset(get_woocommerce_currency(), $price,$waves_assetId);
                 if ($waves_price) {
                     $price_string .= '&nbsp;(<span class="woocommerce-price-amount amount">' . $waves_price . '&nbsp;</span><span class="woocommerce-price-currencySymbol">'.$waves_currency.')</span>';
                 }

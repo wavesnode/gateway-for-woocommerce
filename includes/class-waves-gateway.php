@@ -15,6 +15,7 @@ class WcWavesGateway extends WC_Payment_Gateway
     public $addresses;
     private $assetId;
     private $assetCode;
+    private $currencyIsWaves = false;
 
     public function __construct()
     {
@@ -26,11 +27,32 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->secret   			= $this->get_option('secret');
         $this->order_button_text 	= __('Awaiting transfer..','waves-gateway-for-woocommerce');
         $this->has_fields 			= true;
-        $this->assetId              = $this->get_option('asset_id');
-        $this->assetCode            = $this->get_option('asset_code');
+
+        // assetCode+id if woocommerce_currency is set to Waves-like currency
+        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin"));
+        if($this->currencyIsWaves) {
+            if (get_woocommerce_currency() == "Waves") {
+                $this->assetCode = 'Waves';
+                $this->assetId = null;
+            } else if (get_woocommerce_currency() == "WNET") {
+                $this->assetCode = 'WNET';
+                $this->assetId = 'AxAmJaro7BJ4KasYiZhw7HkjwgYtt2nekPuF2CN9LMym';
+            } else if (get_woocommerce_currency() == "ARTcoin") {
+                $this->assetCode = 'ARTcoin';
+                $this->assetId = 'GQe2a2uReaEiHLdjzC8q4Popr9tnKonEpcaihEoZrNiR';
+            }
+        } else {
+            $this->assetId              = $this->get_option('asset_id');
+            $this->assetCode            = $this->get_option('asset_code');
+
+        }
+        if(empty($this->assetId)) {
+            $this->assetId = null;
+        }
         if(empty($this->assetCode)) {
             $this->assetCode = 'Waves';
         }
+
         $this->initFormFields();
 
         $this->initSettings();
@@ -61,10 +83,12 @@ class WcWavesGateway extends WC_Payment_Gateway
     {
     	global $woocommerce;
     	$woocommerce->cart->get_cart();
-        $fiat_currency = get_woocommerce_currency();
-        $fiat_total = $this->get_order_total();
-        $total_converted = WavesExchange::convertToAsset($fiat_currency, $fiat_total,$this->assetCode);
-        $rate = $total_converted / $fiat_total;
+        $total_converted = $this->get_order_total();
+        $rate = null;
+        if(!$this->currencyIsWaves) {
+            $total_converted = WavesExchange::convertToAsset(get_woocommerce_currency(), $total_converted,$this->assetId);
+            $rate = $total_converted / $this->get_order_total();
+        }
         $total_waves = $total_converted * 100000000;
 		
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
@@ -90,11 +114,15 @@ class WcWavesGateway extends WC_Payment_Gateway
                 <?}?>
                 <div class="separator"></div>
                 <div class="waves-container">
-                <label class="waves-label">(1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> <?=$this->assetCode?>)</label>
+                <?if($rate!=null){?>
+                <label class="waves-label">
+                    (1<?=get_woocommerce_currency()?> = <?=round($rate,6)?> <?=$this->assetCode?>)
+                </label>
+                <?}?>
                 <p class="waves-amount">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
                           data-clipboard-text="<?=esc_attr($total_converted)?>"><?=esc_attr($total_converted)?>
-                    </span>
+                    </span> <strong><?=$this->assetCode?></strong>
                 </p>
                 </div>
             </div>
@@ -109,7 +137,7 @@ class WcWavesGateway extends WC_Payment_Gateway
             </div>
             <div class="separator"></div>
             <div class="waves-container">
-                <label class="waves-label"><?=__('attachment', 'waves-gateway-for-woocommerce')?></label>';
+                <label class="waves-label"><?=__('attachment', 'waves-gateway-for-woocommerce')?></label>
                 <p class="waves-address">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
                           data-clipboard-text="<?=esc_attr($destination_tag)?>"><?=esc_attr($destination_tag)?>
@@ -122,7 +150,7 @@ class WcWavesGateway extends WC_Payment_Gateway
             <div class="separator"></div>
             <div class="waves-container">
                 <p>
-                    <?=sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted) .'</strong>' )?>
+                    <?=sprintf(__('Send a payment of exactly %s to the address above (click the links to copy or scan the QR code). We will check in the background and notify you when the payment has been validated.', 'waves-gateway-for-woocommerce'), '<strong>'. esc_attr($total_converted).' '.$this->assetCode.'</strong>' )?>
                 </p>
                 <strong>DO NOT FORGET THE ATTACHMENT IF YOU USE MANUAL PAYMENT! </strong>
                 <p>
