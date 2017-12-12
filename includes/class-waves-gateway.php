@@ -137,7 +137,7 @@ class WcWavesGateway extends WC_Payment_Gateway
             </div>
             <div class="separator"></div>
             <div class="waves-container">
-                <label class="waves-label"><?=__('attachment', 'waves-gateway-for-woocommerce')?></label>';
+                <label class="waves-label"><?=__('attachment', 'waves-gateway-for-woocommerce')?></label>
                 <p class="waves-address">
                     <span class="copy" data-success-label="<?=__('copied','waves-gateway-for-woocommerce')?>"
                           data-clipboard-text="<?=esc_attr($destination_tag)?>"><?=esc_attr($destination_tag)?>
