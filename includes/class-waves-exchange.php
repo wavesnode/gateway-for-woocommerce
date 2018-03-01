@@ -34,7 +34,7 @@ class WavesExchange
         if(!$exchange_price || $exchange_price==0 || $price==null) {
             return null;
         }
-        return round($price / $exchange_price, 0, PHP_ROUND_HALF_UP);
+        return round($price / $exchange_price, $currencyTo=='waves'?2:0, PHP_ROUND_HALF_UP);
     }
 
     public static function convertToAsset($currency, $price,$assetId) {
