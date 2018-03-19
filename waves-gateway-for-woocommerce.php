@@ -124,7 +124,7 @@ if (!class_exists('WcWaves')) {
                 case 'WNET': $currency_symbol = 'WNET'; break;
                 case 'ARTcoin': $currency_symbol = 'ARTcoin'; break;
                 case 'POL': $currency_symbol = 'POL'; break;
-                case 'TN': $currency_symbol = '$TN'; break;
+                case 'TN': $currency_symbol = 'TN'; break;
             }
             return $currency_symbol;
         }
