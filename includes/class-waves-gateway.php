@@ -29,7 +29,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->has_fields 			= true;
 
         // assetCode+id if woocommerce_currency is set to Waves-like currency
-        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin"));
+        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL"));
         if($this->currencyIsWaves) {
             if (get_woocommerce_currency() == "Waves") {
                 $this->assetCode = 'Waves';
@@ -40,11 +40,13 @@ class WcWavesGateway extends WC_Payment_Gateway
             } else if (get_woocommerce_currency() == "ARTcoin") {
                 $this->assetCode = 'ARTcoin';
                 $this->assetId = 'GQe2a2uReaEiHLdjzC8q4Popr9tnKonEpcaihEoZrNiR';
+            } else if (get_woocommerce_currency() == "POL") {
+                $this->assetCode = 'POL';
+                $this->assetId = 'Fx2rhWK36H1nfXsiD4orNpBm2QG1JrMhx3eUcPVcoZm2';
             }
         } else {
             $this->assetId              = $this->get_option('asset_id');
             $this->assetCode            = $this->get_option('asset_code');
-
         }
         if(empty($this->assetId)) {
             $this->assetId = null;
