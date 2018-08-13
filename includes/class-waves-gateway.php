@@ -29,7 +29,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->has_fields 			= true;
 
         // assetCode+id if woocommerce_currency is set to Waves-like currency
-        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL"));
+        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin","Surfcash","TN","Ecop"));
         if($this->currencyIsWaves) {
             if (get_woocommerce_currency() == "Waves") {
                 $this->assetCode = 'Waves';
@@ -43,7 +43,19 @@ class WcWavesGateway extends WC_Payment_Gateway
             } else if (get_woocommerce_currency() == "POL") {
                 $this->assetCode = 'POL';
                 $this->assetId = 'Fx2rhWK36H1nfXsiD4orNpBm2QG1JrMhx3eUcPVcoZm2';
-            }
+            } else if (get_woocommerce_currency() == "Wykop Coin") {
+                $this->assetCode = 'Wykop Coin';
+                $this->assetId = 'AHcY2BMoxDZ57mLCWWQYBcWvKzf7rdFMgozJn6n4xgLt';
+			} else if (get_woocommerce_currency() == "Surfcash") {
+                $this->assetCode = 'Surfcash';
+                $this->assetId = 'GcQ7JVnwDizXW8KkKLKd8VDnygGgN7ZnpwnP3bA3VLsE';
+			} else if (get_woocommerce_currency() == "TN") {
+                $this->assetCode = 'TN';
+                $this->assetId = 'HxQSdHu1X4ZVXmJs232M6KfZi78FseeWaEXJczY6UxJ3';
+			} else if (get_woocommerce_currency() == "Ecop") {
+                $this->assetCode = 'Ecop';
+                $this->assetId = 'DcLDr4g2Ys4D2RWpkhnUMjMR1gVNPxHEwNkmZzmakQ9R';
+				}
         } else {
             $this->assetId              = $this->get_option('asset_id');
             $this->assetCode            = $this->get_option('asset_code');
@@ -91,8 +103,22 @@ class WcWavesGateway extends WC_Payment_Gateway
             $total_converted = WavesExchange::convertToAsset(get_woocommerce_currency(), $total_converted,$this->assetId);
             $rate = $total_converted / $this->get_order_total();
         }
-        $total_waves = $total_converted * 100000000;
 		
+		// Set decimals for tokens other than default value 8
+		if (get_woocommerce_currency() == "Ecop") {
+		$total_waves = $total_converted * 100000;
+		} 
+		else if (get_woocommerce_currency() == "Surfcash") {
+		$total_waves = $total_converted * 100;
+		} 
+		else if (get_woocommerce_currency() == "TN") {
+		$total_waves = $total_converted * 100;
+		}
+		else {
+			$total_waves = $total_converted * 100000000;
+		}
+
+
         $destination_tag = hexdec( substr(sha1(current_time(timestamp,1) . key ($woocommerce->cart->cart_contents )  ), 0, 7) );
         $base58 = new StephenHill\Base58();
         $destination_tag_encoded = $base58->encode(strval($destination_tag));
