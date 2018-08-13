@@ -6,14 +6,15 @@
  * Plugin Name: WNET Gateway for Woocommerce (also for other Waves assets)
  * Plugin URI: https://github.com/wavesnode/gateway-for-woocommerce/
  * Description: Show prices in Waves (or asset) and accept Waves payments in your woocommerce webshop
- * Version: 0.4.2
- * Author: Tubby / Useless Waves Token
+ * Version: 0.4.4
+ * Author: Wavesnode.NET / Useless Waves Token
+ * Author URI:   https://wavesnode.net/blog/waves-woocommerce-gateway/
  * License: GPLv2 or later
  * License URI: http://www.opensource.org/licenses/gpl-license.php
  * Text Domain: waves-gateway-for-woocommerce
  * Domain Path: /languages/
   *
- * Copyright 2017 Useless Waves Token Foundation
+ * Copyright 2018 Wavesnode.NET / Copyright 2017 Useless Waves Token Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -115,6 +116,9 @@ if (!class_exists('WcWaves')) {
             $currencies['ARTcoin'] = __( 'ARTcoin', 'ARTcoin' );
             $currencies['POL'] = __( 'POLTOKEN.PL', 'POL' );
             $currencies['Wykop Coin'] = __( 'WYKOP.PL', 'Wykop Coin' );
+			$currencies['Surfcash'] = __( 'Surfcash', 'surfcash' );
+			$currencies['TN'] = __( 'TurtleNode', 'tn' );
+			$currencies['Ecop'] = __( 'Ecop', 'Ecop' );
             return $currencies;
         }
 
@@ -125,6 +129,9 @@ if (!class_exists('WcWaves')) {
                 case 'ARTcoin': $currency_symbol = 'ARTcoin'; break;
                 case 'POL': $currency_symbol = 'POL'; break;
                 case 'Wykop Coin': $currency_symbol = 'Wykop Coin'; break;
+				case 'Surfcash': $currency_symbol = 'surfcash'; break;
+				case 'TN': $currency_symbol = 'TN'; break;
+				case 'Ecop': $currency_symbol = 'Ecop'; break;
             }
             return $currency_symbol;
         }
@@ -159,7 +166,7 @@ if (!class_exists('WcWaves')) {
 	    private function convertToWavesPrice($price_string, $price)
 	    {
             $options = get_option('woocommerce_waves_settings');
-            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin")) && $options['show_prices'] == 'yes') {
+            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin","Surfcash","TN","Ecop")) && $options['show_prices'] == 'yes') {
                 $waves_currency = $options['asset_code'];
                 if(empty($waves_currency)) {
                     $waves_currency = 'Waves';
