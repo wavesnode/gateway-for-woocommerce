@@ -118,7 +118,7 @@ if (!class_exists('WcWaves')) {
             $currencies['Wykop Coin'] = __( 'WYKOP.PL', 'Wykop Coin' );
 			$currencies['Surfcash'] = __( 'Surfcash', 'surfcash' );
 			$currencies['TN'] = __( 'TurtleNode', 'tn' );
-			$currencies['Ecop'] = __( 'Ecop', 'Ecop' );
+			$currencies['Bitruble'] = __( 'Bitruble', 'Bitruble' );
             return $currencies;
         }
 
@@ -131,7 +131,7 @@ if (!class_exists('WcWaves')) {
                 case 'Wykop Coin': $currency_symbol = 'Wykop Coin'; break;
 				case 'Surfcash': $currency_symbol = 'surfcash'; break;
 				case 'TN': $currency_symbol = 'TN'; break;
-				case 'Ecop': $currency_symbol = 'Ecop'; break;
+				case 'Bitruble': $currency_symbol = 'Bitruble'; break;
             }
             return $currency_symbol;
         }
@@ -166,7 +166,7 @@ if (!class_exists('WcWaves')) {
 	    private function convertToWavesPrice($price_string, $price)
 	    {
             $options = get_option('woocommerce_waves_settings');
-            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin","Surfcash","TN","Ecop")) && $options['show_prices'] == 'yes') {
+            if(!in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin","Surfcash","TN","Bitruble")) && $options['show_prices'] == 'yes') {
                 $waves_currency = $options['asset_code'];
                 if(empty($waves_currency)) {
                     $waves_currency = 'Waves';
