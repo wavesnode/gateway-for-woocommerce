@@ -127,10 +127,12 @@ class WcWavesGateway extends WC_Payment_Gateway
         WC()->session->set('waves_destination_tag', $destination_tag_encoded);
         WC()->session->set('waves_data_hash', sha1( $this->secret . $total_converted ));
         //QR uri
-        $url = "waves://". $this->address ."?amount=". $total_waves."&attachment=".$destination_tag;
         if($this->assetId) {
-            $url .= "&asset=".$this->assetId;
-        }?>
+            $url = "https://client.wavesplatform.com/#send/".$this->assetId."?amount=". $total_waves."&recipient=".$this->address."&attachment=".$destination_tag;
+        }
+		else {
+			$url = "https://client.wavesplatform.com/#send/WAVES"."?amount=". $total_waves."&recipient=".$this->address."&attachment=".$destination_tag;
+		}?>
         <div id="waves-form">
             <div class="waves-container">
             <div>
