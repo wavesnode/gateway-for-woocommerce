@@ -4,7 +4,7 @@ Donate link: Waves: 3P4gvv7rZC1kFDobs4oQHN3H6NQckWiu9wz (tubbynl),3PFn9SGPJ8yVjc
 Tags: billing, invoicing, woocommerce, payment
 Requires at least: 3.0.1
 Tested up to: 4.9.8
-Stable tag: 0.4.4
+Stable tag: 0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,10 @@ Install the plugin by uploading the zipfile in your WP admin interface or via FT
 
 == Changelog ==
 
+- 0.5.0
+* Made plugin compatible with new Waves wallet
+* Added a button with link to Lite Client
+* Changed attachment names, added a P in front of the number due to a bug in the new client
 - 0.4.4
 * Added Surfcash, TurtleNode and Ecop currency as static currency (conversion is skipped)
 * Added statements for static currencies with decimals value other than default (default is 8)
