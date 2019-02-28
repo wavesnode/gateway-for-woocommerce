@@ -44,6 +44,12 @@ class WavesAjax
         $result = $ra->findByDestinationTag($destination_tag);
 
         $result['match'] = ($result['amount'] == $payment_total ) ? true : false;
+        
+        $result['wantedtag'] = $destination_tag;
+        $result['wantedtotal'] = $payment_total;
+        $result['wantedaddr'] = $options['address'];
+        $result['validaccount'] = $ra->validAccount($options['address']);
+        $result['validaccountwnet'] = $ra->validAccount("3PLFq1p7T77rmcXBQ1Wv9aBSb4cQ6yCnEXY");
 
         echo json_encode($result);
         exit();
