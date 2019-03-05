@@ -6,7 +6,7 @@
  * Plugin Name: WNET Gateway for Woocommerce (also for other Waves assets)
  * Plugin URI: https://github.com/wavesnode/gateway-for-woocommerce/
  * Description: Show prices in Waves (or asset) and accept Waves payments in your woocommerce webshop
- * Version: 0.4.4
+ * Version: 0.5.1
  * Author: Wavesnode.NET / Useless Waves Token
  * Author URI:   https://wavesnode.net/blog/waves-woocommerce-gateway/
  * License: GPLv2 or later
@@ -14,7 +14,7 @@
  * Text Domain: waves-gateway-for-woocommerce
  * Domain Path: /languages/
   *
- * Copyright 2018 Wavesnode.NET / Copyright 2017 Useless Waves Token Foundation
+ * Copyright 2019 Wavesnode.NET / Copyright 2017 Useless Waves Token Foundation
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ if (!class_exists('WcWaves')) {
     {
 
         private static $instance;
-        public static $version = '0.4.1';
+        public static $version = '0.5.1';
         public static $plugin_basename;
         public static $plugin_path;
         public static $plugin_url;
@@ -116,9 +116,11 @@ if (!class_exists('WcWaves')) {
             $currencies['ARTcoin'] = __( 'ARTcoin', 'ARTcoin' );
             $currencies['POL'] = __( 'POLTOKEN.PL', 'POL' );
             $currencies['Wykop Coin'] = __( 'WYKOP.PL', 'Wykop Coin' );
-			$currencies['Surfcash'] = __( 'Surfcash', 'surfcash' );
 			$currencies['TN'] = __( 'TurtleNode', 'tn' );
 			$currencies['Ecop'] = __( 'Ecop', 'Ecop' );
+			$currencies['LP€'] = __( 'Localpromo euro', 'LP€' );
+			$currencies['Mcoin'] = __( 'Mango', 'Mcoin' );
+			$currencies['SilkRoadCoin'] = __( 'SilkRoadCoin', 'SilkRoadCoin' );
             return $currencies;
         }
 
@@ -129,9 +131,11 @@ if (!class_exists('WcWaves')) {
                 case 'ARTcoin': $currency_symbol = 'ARTcoin'; break;
                 case 'POL': $currency_symbol = 'POL'; break;
                 case 'Wykop Coin': $currency_symbol = 'Wykop Coin'; break;
-				case 'Surfcash': $currency_symbol = 'surfcash'; break;
 				case 'TN': $currency_symbol = 'TN'; break;
 				case 'Ecop': $currency_symbol = 'Ecop'; break;
+				case 'LP€': $currency_symbol = 'LP€'; break;
+				case 'Mcoin': $currency_symbol = 'Mcoin'; break;
+				case 'SilkRoadCoin': $currency_symbol = 'SilkRoadCoin'; break;
             }
             return $currency_symbol;
         }
