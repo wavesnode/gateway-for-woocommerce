@@ -29,7 +29,7 @@ class WcWavesGateway extends WC_Payment_Gateway
         $this->has_fields 			= true;
 
         // assetCode+id if woocommerce_currency is set to Waves-like currency
-        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin","TN","Ecop"));
+        $this->currencyIsWaves = in_array(get_woocommerce_currency(), array("WAVES","WNET","ARTcoin","POL","Wykop Coin","TN","Ecop","Mango","SilkRoadCoin","Localpromo Euro"));
         if($this->currencyIsWaves) {
             if (get_woocommerce_currency() == "Waves") {
                 $this->assetCode = 'Waves';
@@ -53,6 +53,18 @@ class WcWavesGateway extends WC_Payment_Gateway
                 $this->assetCode = 'Ecop';
                 $this->assetId = 'DcLDr4g2Ys4D2RWpkhnUMjMR1gVNPxHEwNkmZzmakQ9R';
 				}
+			} else if (get_woocommerce_currency() == "Mango") {
+                $this->assetCode = 'Mango';
+                $this->assetId = 'F2h9nzjXJeeMVePUSgeneJTWXMwBQRxM6sCCHytrdPKB';
+				}
+			} else if (get_woocommerce_currency() == "SilkRoadCoin") {
+                $this->assetCode = 'SilkRoadCoin';
+                $this->assetId = 'rf3GwXcLZkHyiRbCXwfHPVgeAAJ7Q9ojsD3ssvSRL55';
+				}
+			} else if (get_woocommerce_currency() == "Localpromo Euro") {
+                $this->assetCode = 'Localpromo Euro';
+                $this->assetId = '5HtYMme8QxH8CzQGCFQ1XUZ3Zf262tsvKpQtrpFEW9jU';
+				}	
         } else {
             $this->assetId              = $this->get_option('asset_id');
             $this->assetCode            = $this->get_option('asset_code');
@@ -106,6 +118,9 @@ class WcWavesGateway extends WC_Payment_Gateway
 		$total_waves = $total_converted * 100000;
 		} 
 		else if (get_woocommerce_currency() == "TN") {
+		$total_waves = $total_converted * 100;
+		}
+		else if (get_woocommerce_currency() == "Mango") {
 		$total_waves = $total_converted * 100;
 		}
 		else {

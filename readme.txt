@@ -3,8 +3,8 @@ Contributors: uwtoken,tubbynl, clipto
 Donate link: Waves: 3P4gvv7rZC1kFDobs4oQHN3H6NQckWiu9wz (tubbynl),3PFn9SGPJ8yVjcmBps48Jx6ddz1QXwUiYqP (uwtoken)
 Tags: billing, invoicing, woocommerce, payment
 Requires at least: 3.0.1
-Tested up to: 4.9.8
-Stable tag: 0.5
+Tested up to: 5.1
+Stable tag: 0.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,11 @@ Install the plugin by uploading the zipfile in your WP admin interface or via FT
 
 == Changelog ==
 
+- 0.5.1
+* Fixed version number visability in backend
+* Added SilkRoadCoin currency as static currency (conversion is skipped)
+* Added Mango currency as static currency (conversion is skipped)
+* Added Localpromo Euro currency as static currency (conversion is skipped)
 - 0.5.0
 * Made plugin compatible with new Waves wallet
 * Added a button with link to Lite Client
